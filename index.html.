@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <title>Churn Shield | Finance Pro</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="debug-feed">
+            <div id="debug-log" aria-live="polite"></div>
+            <button id="reset-demo" type="button">↻ Reset Demo</button>
+        </div>
+
+        <nav class="test-nav">
+            <button onclick="window.location.hash='#signup'">Signup</button>
+            <button onclick="window.location.hash='#bvn'">BVN</button>
+            <button onclick="window.location.hash='#link-card'">Card</button>
+            <button onclick="window.location.hash='#home'">Dash</button>
+        </nav>
+
+        <main id="app-viewport">
+            <section id="signup" class="view">
+                <h2>The Vision</h2>
+                <p>Start your financial journey here.</p>
+                <input
+                    type="email"
+                    id="user-email"
+                    placeholder="Enter Business Email"
+                    class="main-input"
+                    autocomplete="email"
+                />
+                <button
+                    class="continue-btn"
+                    data-section="#signup"
+                    data-next="#home"
+                >
+                    Continue
+                </button>
+            </section>
+
+            <section id="bvn" class="view" style="display: none">
+                <h2>The Validator</h2>
+                <p>Verify your identity for secure trading.</p>
+                <input
+                    type="text"
+                    id="bvn-input"
+                    placeholder="XXX XXX XXX XX"
+                    class="main-input"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    maxlength="14"
+                />
+                <button
+                    class="continue-btn"
+                    data-section="#bvn"
+                    data-next="#link-card"
+                >
+                    Submit BVN
+                </button>
+            </section>
+
+            <section id="link-card" class="view" style="display: none">
+                <h2>The Fueler</h2>
+                <p>Link your bank card to fund your account.</p>
+                <input
+                    type="text"
+                    id="card-input"
+                    placeholder="XXXX XXXX XXXX XXXX"
+                    class="main-input"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    maxlength="23"
+                />
+                <button
+                    class="continue-btn"
+                    data-section="#link-card"
+                    data-next="#home"
+                >
+                    Link Card
+                </button>
+            </section>
+
+            <section id="home" class="view" style="display: none">
+                <h2 id="dash-title">Dashboard</h2> 
+                <p id="dash-message">Welcome to the inner circle, Boss.</p>
+
+                <div style="margin-top: 20px; display: flex; gap: 10px; flex-direction: column;">
+                    <button class="main-input" onclick="window.location.hash='#bvn'">Verify BVN</button>
+                    <button class="main-input" onclick="window.location.hash='#link-card'">Link Bank Card</button>
+                </div>
+            </section>
+        </main>
+
+        <div id="shield-drawer" class="drawer-hidden">
+            <button id="drawer-close" aria-label="Minimize">×</button>
+            <div class="drawer-content">
+                <span id="shield-message">Stuck? Watch the 60s guide.</span>
+                <button id="open-shield-btn">Watch Video</button>
+            </div>
+        </div>
+
+        <div id="recent-tab" class="hidden" role="button" tabindex="0">
+            <span class="recent-tab-icon">▶</span>
+            <span class="recent-tab-label">Recently Watched</span>
+            <span class="recent-tab-count">0</span>
+        </div>
+
+        <div id="recent-panel" class="hidden">
+            <div class="recent-panel-header">
+                <span>Recently Watched</span>
+                <button id="recent-panel-close" aria-label="Close">×</button>
+            </div>
+            <ul id="recent-list"></ul>
+        </div>
+
+        <div id="video-container" class="vc-hidden vc-small">
+            <div class="vc-header">
+                <span id="vc-title">Guide</span>
+                <button id="vc-toggle" aria-label="Toggle size" title="Expand / Shrink">⛶</button>
+                <button id="vc-close" aria-label="Close">×</button>
+            </div>
+            <video
+                id="churn-video"
+                controls
+                playsinline
+                disablePictureInPicture
+                controlsList="nodownload noplaybackrate noremoteplayback"
+                preload="metadata"
+            >
+                <source src="" type="video/mp4" />
+            </video>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
