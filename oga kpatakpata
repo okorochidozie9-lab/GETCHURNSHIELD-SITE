@@ -1,0 +1,884 @@
+// ==========================================
+// CHURN SHIELD v2 — PAYID FINAL ASSEMBLY
+// Version   : 2.0.0-production
+// Client    : PayID
+//
+// SECURITY PROTOCOLS:
+//   Protocol 1 — Master Domain Guard    : Entire script wrapped in a silent domain check.
+//                                         Unauthorized hosts receive no output and no execution.
+//   Protocol 2 — Namespace Kill Switch  : Silent exit if namespace is in BLOCKED_NAMESPACES.
+//
+// TELEMETRY:
+//   Command Center (Private)            : All signals route to the internal Google Sheet endpoint.
+//   Client Stream (Public)              : Only confirmed saves route to the client webhook.
+//
+// PRESERVED LOGIC NERVES:
+//   Fix 1 — Instant Kill Switch : completeSection calls closeVideo() + hideDrawer() together.
+//   Fix 2 — Alarm Triggers      : vc-close and drawer-close both call restartWatchdog().
+//   Fix 3 — Mute Rule           : restartWatchdog guards on shield-drawer.active, not isVideoActive().
+//   Zone 4 — Navigation Persist : onhashchange never interrupts a video currently in flight.
+// ==========================================
+
+(function (global) {
+  "use strict";
+
+
+  // ==========================================
+  // PROTOCOL 1 — MASTER DOMAIN GUARD
+  // Resolved before any engine logic executes.
+  // Unauthorized hosts receive a silent return — no console output, no exceptions.
+  // ==========================================
+  var AUTHORIZED_DOMAINS = [
+    "payid.app",
+    "okorochidozie9-lab.github.io",
+    "localhost"
+  ];
+
+  var _host       = global.location.hostname;
+  var _authorized = false;
+
+  for (var _i = 0; _i < AUTHORIZED_DOMAINS.length; _i++) {
+    var _d = AUTHORIZED_DOMAINS[_i];
+    if (_host === _d || _host.slice(-(_d.length + 1)) === "." + _d) {
+      _authorized = true;
+      break;
+    }
+  }
+
+  if (!_authorized) return;
+
+
+  // ==========================================
+  // PROTOCOL 2 — NAMESPACE KILL SWITCH
+  // Add a namespace string here to remotely decommission a deployment.
+  // The engine exits silently without executing any further logic.
+  // ==========================================
+  var BLOCKED_NAMESPACES = [];
+
+
+  // ==========================================
+  // TELEMETRY ENDPOINTS
+  // Command Center receives every signal regardless of type.
+  // The client webhook receives only confirmed onboarding saves.
+  // ==========================================
+  var COMMAND_CENTER_URL = "https://script.google.com/macros/s/AKfycby5t4f60qQGqG3SjQv5XU9SjQ-u7_X7R8v1W0/exec";
+
+
+  // ==========================================
+  // PAYID CONFIGURATION
+  // Shared across all three registered environments.
+  // ==========================================
+  var PAYID_CONFIG = {
+    namespace:   "payid_shield_v2",
+    accentColor: "#00d1b2",
+    homeHash:    "#dashboard",
+
+    webhooks: {
+      friction: "https://hook.eu1.make.com/bva2khnjno8f43ldtjnsdj4l18c2g8f4",
+      success:  "https://hook.eu1.make.com/m9fssewtm2yk6i2msmjb0eylt63crgkv"
+    },
+
+    completionGates: ["#bvn-verification", "#link-card"],
+
+    timing: {
+      taskRescue:    15000,
+      homeProfessor:  5000,
+      homeCoach:      3000,
+      proTipReward:  10000,
+      qualifiedView:  5000
+    },
+
+    pages: {
+
+      // Triggers on #dashboard when completion gates are not yet cleared.
+      "#home-professor": {
+        msg:   "Welcome to PayID! Here is your 72-hour success roadmap.",
+        video: "https://res.cloudinary.com/dsye3fbye/video/upload/f_auto,q_auto/v1776383449/2026-04-11-124911579_hvj9ov.mp4",
+        label: "Main_Onboarding_Guide",
+        title: "The PayID Roadmap"
+      },
+
+      // BVN Verification task page. Rescue timer fires after 15s of user inactivity.
+      "#bvn-verification": {
+        msg:   "Security Check: Verify your BVN to continue.",
+        video: "https://res.cloudinary.com/dsye3fbye/video/upload/f_auto,q_auto/v1776383440/2026-04-11-131757011_rlc2ty.mp4",
+        label: "BVN_Verification_Friction",
+        title: "Identity Check"
+      },
+
+      // Card Linking task page. Rescue timer fires after 15s of user inactivity.
+      "#link-card": {
+        msg:   "Almost there! Link a card to activate your account.",
+        video: "https://res.cloudinary.com/dsye3fbye/video/upload/f_auto,q_auto/v1776383448/2026-04-11-151934848_cctymj.mp4",
+        label: "Card_Linking_Guide",
+        title: "Linking Your Bank"
+      },
+
+      // Triggers on #dashboard only after both completion gates are cleared.
+      "#home-coach": {
+        msg:   "Pro-Tip Unlocked — Here is your reward for finishing setup.",
+        video: "https://res.cloudinary.com/dsye3fbye/video/upload/f_auto,q_auto/v1776383447/2026-04-11-164015879_plsveg.mp4",
+        label: "Pro_Tip_Reward",
+        title: "Pro-Tip Unlocked"
+      },
+
+      // Dashboard sentinel entry used as the Pro-Tip hotspot video source.
+      "#dashboard": {
+        video: "https://res.cloudinary.com/dsye3fbye/video/upload/f_auto,q_auto/v1776383447/2026-04-11-164015879_plsveg.mp4",
+        label: "Onboarding_Complete",
+        title: "Pro-Tip Unlocked"
+      }
+
+    }
+  };
+
+  // Registered environments. All three resolve to the identical PayID config
+  // to guarantee the staging environment is a 1:1 reflection of production.
+  var BRANDS = {
+    "payid.app":                    PAYID_CONFIG,
+    "okorochidozie9-lab.github.io": PAYID_CONFIG,
+    "localhost":                    PAYID_CONFIG
+  };
+
+
+  // ==========================================
+  // DEFAULT CONFIG SHAPE
+  // ==========================================
+  var DEFAULT_CONFIG = {
+    webhooks: {
+      friction: "",
+      success:  ""
+    },
+    timing: {
+      taskRescue:    15000,
+      homeProfessor:  5000,
+      homeCoach:      3000,
+      proTipReward:  10000,
+      qualifiedView:  5000
+    },
+    accentColor:     "#6366f1",
+    pages:           {},
+    homeHash:        "#home",
+    completionGates: [],
+    namespace:       "churnShield"
+  };
+
+
+  // ==========================================
+  // SHADOW INJECTION
+  // Appends all required HTML to <body> on init.
+  // The client page requires no manual markup.
+  // ==========================================
+  function injectHTML(accentColor) {
+    if (document.getElementById("cs-root")) return;
+
+    var root = document.createElement("div");
+    root.id  = "cs-root";
+
+    root.innerHTML =
+      '<div id="video-container" class="vc-hidden">' +
+        '<div id="vc-header">' +
+          '<span id="vc-title">Guide</span>' +
+          '<div id="vc-controls">' +
+            '<button id="vc-toggle" aria-label="Toggle size">\u2922</button>' +
+            '<button id="vc-close"  aria-label="Close video">\u2715</button>' +
+          "</div>" +
+        "</div>" +
+        '<video id="churn-video" playsinline></video>' +
+      "</div>" +
+      '<div id="shield-drawer" class="drawer-hidden" role="complementary" aria-live="polite">' +
+        '<p id="shield-message"></p>' +
+        '<div id="shield-actions">' +
+          '<button id="drawer-watch">Watch</button>' +
+          '<button id="drawer-close" aria-label="Dismiss help">\u2715</button>' +
+        "</div>" +
+      "</div>" +
+      '<button id="recent-tab" class="hidden" aria-label="Recently watched">' +
+        '\u25b6 <span class="recent-tab-count">0</span>' +
+      "</button>" +
+      '<div id="recent-panel" class="hidden" aria-label="Recently watched videos">' +
+        '<div id="recent-panel-header">' +
+          "<span>Recently Watched</span>" +
+          '<button id="recent-panel-close">\u2715</button>' +
+        "</div>" +
+        '<ul id="recent-list"></ul>' +
+      "</div>";
+
+    document.body.appendChild(root);
+    applyStyles(accentColor);
+  }
+
+  function applyStyles(accent) {
+    if (document.getElementById("cs-styles")) return;
+    var style = document.createElement("style");
+    style.id  = "cs-styles";
+    style.textContent = [
+      ":root { --cs-accent: " + accent + "; }",
+      "#cs-root * { box-sizing: border-box; font-family: inherit; }",
+
+      "#video-container {",
+        "position:fixed; z-index:9990;",
+        "background:#000; border-radius:10px;",
+        "overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,.45);",
+        "transition:all .3s ease;",
+      "}",
+      "#video-container.vc-hidden  { display:none; }",
+      "#video-container.vc-small   { bottom:16px; right:16px; width:280px; }",
+      "#video-container.vc-full    { bottom:0; right:0; width:100vw; height:100vh; border-radius:0; }",
+      "#video-container.vc-success { border:2px solid gold; }",
+
+      "#vc-header {",
+        "display:flex; justify-content:space-between; align-items:center;",
+        "padding:6px 10px; background:rgba(0,0,0,.7); color:#fff;",
+      "}",
+      "#vc-title    { font-size:.8rem; font-weight:600; flex:1; }",
+      "#vc-controls { display:flex; gap:6px; }",
+      "#vc-controls button { background:none; border:none; color:#fff; cursor:pointer; font-size:.9rem; padding:2px 4px; }",
+      "#churn-video { width:100%; display:block; }",
+
+      "#shield-drawer {",
+        "position:fixed; bottom:0; left:0; right:0; z-index:9980;",
+        "background:var(--cs-accent); color:#fff;",
+        "display:flex; align-items:center; justify-content:space-between;",
+        "padding:12px 20px; gap:12px;",
+        "transform:translateY(0); transition:transform .35s ease;",
+      "}",
+      "#shield-drawer.drawer-hidden { display:none; }",
+      "#shield-drawer.gold          { background:#b45309; }",
+
+      "#shield-message { margin:0; font-size:.9rem; flex:1; }",
+      "#shield-actions { display:flex; gap:8px; flex-shrink:0; }",
+      "#shield-actions button { border:none; border-radius:6px; padding:6px 14px; cursor:pointer; font-size:.85rem; font-weight:600; }",
+      "#drawer-watch                     { background:#fff; color:var(--cs-accent); }",
+      "#shield-drawer.gold #drawer-watch { color:#b45309; }",
+      "#drawer-close { background:rgba(255,255,255,.2); color:#fff; }",
+
+      "#recent-tab {",
+        "position:fixed; bottom:16px; left:16px; z-index:9970;",
+        "background:var(--cs-accent); color:#fff;",
+        "border:none; border-radius:20px; padding:8px 14px;",
+        "cursor:pointer; font-size:.8rem; font-weight:600;",
+      "}",
+      "#recent-tab.hidden { display:none; }",
+
+      "#recent-panel {",
+        "position:fixed; bottom:60px; left:16px; z-index:9975;",
+        "background:#1e1e2e; color:#fff; border-radius:10px;",
+        "width:260px; box-shadow:0 4px 24px rgba(0,0,0,.4); overflow:hidden;",
+      "}",
+      "#recent-panel.hidden { display:none; }",
+      "#recent-panel-header {",
+        "display:flex; justify-content:space-between; align-items:center;",
+        "padding:10px 14px; background:rgba(255,255,255,.05); font-size:.85rem; font-weight:600;",
+      "}",
+      "#recent-panel-close { background:none; border:none; color:#fff; cursor:pointer; font-size:1rem; }",
+      "#recent-list  { list-style:none; margin:0; padding:8px; }",
+      ".recent-item  { display:flex; justify-content:space-between; align-items:center; padding:8px; border-radius:6px; }",
+      ".recent-item:hover { background:rgba(255,255,255,.05); }",
+      ".recent-title  { font-size:.8rem; flex:1; }",
+      ".recent-replay { background:var(--cs-accent); color:#fff; border:none; border-radius:4px; padding:4px 10px; cursor:pointer; font-size:.75rem; }",
+      ".recent-empty  { padding:8px; color:rgba(255,255,255,.5); font-size:.8rem; }"
+    ].join("\n");
+
+    document.head.appendChild(style);
+  }
+
+
+  // ==========================================
+  // INTERNAL ENGINE
+  // ==========================================
+  function createEngine(config) {
+
+    // Protocol 2 — Namespace Kill Switch. Silent exit on blocked namespace.
+    if (BLOCKED_NAMESPACES.indexOf(config.namespace) !== -1) return null;
+
+    var NS = config.namespace;
+    var STORAGE_KEYS = {
+      email:     NS + ".userEmail",
+      lastLabel: NS + ".lastActiveLabel",
+      completed: NS + ".completedSections"
+    };
+
+    // State
+    var userEmail        = localStorage.getItem(STORAGE_KEYS.email)     || "unknown@user.com";
+    var lastActiveLabel  = localStorage.getItem(STORAGE_KEYS.lastLabel) || null;
+    var completedSections;
+    try {
+      completedSections = new Set(JSON.parse(sessionStorage.getItem(STORAGE_KEYS.completed) || "[]"));
+    } catch (_) {
+      completedSections = new Set();
+    }
+
+    var recentlyWatched  = [];
+    var watchdogTimer;
+    var qualifiedViewTimer;
+    var proTipTimer;
+    var proTipPending    = false;
+    var lastFocusedField = "none";
+
+    function persistCompleted() {
+      try {
+        sessionStorage.setItem(STORAGE_KEYS.completed, JSON.stringify(Array.from(completedSections)));
+      } catch (_) {}
+    }
+
+    // Helpers
+    function isVideoActive() {
+      var c = document.getElementById("video-container");
+      return c ? !c.classList.contains("vc-hidden") : false;
+    }
+
+    function fieldIdOf(el) {
+      if (!el) return null;
+      return el.id || el.name || el.getAttribute("placeholder") || (el.tagName ? el.tagName.toLowerCase() : null);
+    }
+
+    // ==========================================
+    // DUAL-STREAM TELEMETRY
+    //
+    // All signals travel two paths simultaneously:
+    //   Stream A — Command Center (private) : Every event, without exception.
+    //                                         Endpoint: COMMAND_CENTER_URL (Google Sheet).
+    //   Stream B — Client webhooks (public) : Friction and trigger events go to webhooks.friction.
+    //                                         Confirmed save events go to webhooks.success.
+    // ==========================================
+    function dispatchToCommandCenter(payload) {
+      if (!COMMAND_CENTER_URL) return;
+      fetch(COMMAND_CENTER_URL, {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify(payload)
+      }).catch(function () {});
+    }
+
+    function dispatchToClientWebhook(payload, isSave) {
+      var url = isSave ? config.webhooks.success : config.webhooks.friction;
+      if (!url) return;
+      fetch(url, {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify(payload)
+      }).catch(function () {});
+    }
+
+    function isSaveEvent(status) {
+      return (
+        status === "Onboarding_Complete" ||
+        status === "onboarding_complete" ||
+        status.slice(-12) === "_SUCCESS_SAVE"
+      );
+    }
+
+    function sendSignal(status, extras) {
+      var payload = {
+        namespace:          NS,
+        email:              userEmail,
+        event:              status,
+        last_focused_field: lastFocusedField || "none",
+        timestamp:          new Date().toISOString(),
+        host:               global.location.hostname
+      };
+
+      if (extras) {
+        Object.keys(extras).forEach(function (k) { payload[k] = extras[k]; });
+      }
+
+      var saveEvent = isSaveEvent(status);
+
+      // Stream A — Command Center receives every event.
+      dispatchToCommandCenter(payload);
+
+      // Stream B — Route to the correct client webhook based on event type.
+      dispatchToClientWebhook(payload, saveEvent);
+    }
+
+    function sendSuccess(extra) {
+      var payload = {
+        namespace: NS,
+        email:     userEmail,
+        event:     "onboarding_complete",
+        status:    "success",
+        timestamp: new Date().toISOString(),
+        host:      global.location.hostname
+      };
+
+      if (extra) {
+        Object.keys(extra).forEach(function (k) { payload[k] = extra[k]; });
+      }
+
+      // Both streams receive the confirmed completion event.
+      dispatchToCommandCenter(payload);
+      dispatchToClientWebhook(payload, true);
+    }
+
+    // Identity Capture — binds to any input carrying [data-shield-identity].
+    function bindIdentityCapture() {
+      document.addEventListener("focusout", function (e) {
+        var t = e.target;
+        if (!t || !t.hasAttribute("data-shield-identity")) return;
+        var v = t.value.trim();
+        if (v.indexOf("@") !== -1) {
+          userEmail = v;
+          try { localStorage.setItem(STORAGE_KEYS.email, userEmail); } catch (_) {}
+          sendSignal("Identity_Captured");
+        }
+      });
+    }
+
+    // Leaky-Bucket: records the last input field touched for friction event analytics.
+    function bindFieldTracker() {
+      document.addEventListener("focusin", function (e) {
+        var t = e.target;
+        if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT")) {
+          lastFocusedField = fieldIdOf(t);
+        }
+      });
+    }
+
+    // Shield Drawer
+    function showShieldUI(pageHash) {
+      var cfg = config.pages[pageHash];
+      if (!cfg) return;
+      if (completedSections.has(pageHash)) return;
+
+      var drawer = document.getElementById("shield-drawer");
+      document.getElementById("shield-message").innerText = cfg.msg || "";
+      drawer.dataset.video = cfg.video || "";
+      drawer.dataset.label = cfg.label || "";
+      drawer.dataset.title = cfg.title || "";
+
+      drawer.classList.remove("drawer-hidden", "gold");
+      drawer.classList.add("active");
+      document.getElementById("recent-tab").classList.add("hidden");
+
+      lastActiveLabel = cfg.label;
+      try { localStorage.setItem(STORAGE_KEYS.lastLabel, lastActiveLabel); } catch (_) {}
+
+      sendSignal(cfg.label, { last_focused_field: lastFocusedField || "(none)" });
+    }
+
+    function hideDrawer() {
+      var drawer = document.getElementById("shield-drawer");
+      drawer.classList.remove("active");
+      drawer.classList.add("drawer-hidden");
+    }
+
+    // Video Player
+    function openVideo(videoUrl, title, label, themeClass) {
+      if (!videoUrl) return;
+      var container = document.getElementById("video-container");
+      var player    = document.getElementById("churn-video");
+
+      document.getElementById("vc-title").textContent = title || "Guide";
+      player.src = videoUrl;
+
+      container.classList.remove("vc-hidden", "vc-full", "vc-success");
+      container.classList.add("vc-small");
+      if (themeClass) container.classList.add(themeClass);
+
+      addToRecentlyWatched({ video: videoUrl, title: title, label: label, themeClass: themeClass });
+
+      // Qualified View: 5s of continuous playback fires a QUALIFIED_VIEW signal to both streams.
+      var qualifiedSent = false;
+      clearTimeout(qualifiedViewTimer);
+      var onPlay = function () {
+        qualifiedViewTimer = setTimeout(function () {
+          if (!qualifiedSent && !player.paused && player.currentTime >= 5) {
+            qualifiedSent = true;
+            sendSignal((label || "video") + "_QUALIFIED_VIEW");
+          }
+        }, config.timing.qualifiedView);
+      };
+      player.addEventListener("play", onPlay, { once: true });
+
+      var p = player.play();
+      if (p && typeof p.catch === "function") p.catch(function () {});
+    }
+
+    function closeVideo() {
+      var container = document.getElementById("video-container");
+      var player    = document.getElementById("churn-video");
+      player.pause();
+      try { player.currentTime = 0; } catch (_) {}
+      container.classList.add("vc-hidden");
+      container.classList.remove("vc-small", "vc-full", "vc-success");
+    }
+
+    function toggleVideoSize() {
+      var container = document.getElementById("video-container");
+      if (container.classList.contains("vc-full")) {
+        container.classList.replace("vc-full", "vc-small");
+      } else {
+        container.classList.replace("vc-small", "vc-full");
+      }
+    }
+
+    // Recently Watched
+    function addToRecentlyWatched(entry) {
+      if (!entry || !entry.video) return;
+      var idx = recentlyWatched.findIndex(function (r) { return r.video === entry.video; });
+      if (idx !== -1) recentlyWatched.splice(idx, 1);
+      recentlyWatched.unshift(entry);
+      if (recentlyWatched.length > 8) recentlyWatched.length = 8;
+      refreshRecentList();
+      updateRecentTab();
+    }
+
+    function showRecentTab() {
+      document.getElementById("recent-tab").classList.remove("hidden");
+      updateRecentTab();
+    }
+
+    function updateRecentTab() {
+      var count = document.querySelector("#recent-tab .recent-tab-count");
+      if (count) count.textContent = String(recentlyWatched.length);
+    }
+
+    function refreshRecentList() {
+      var list = document.getElementById("recent-list");
+      if (!list) return;
+      list.innerHTML = "";
+      if (!recentlyWatched.length) {
+        var empty = document.createElement("li");
+        empty.className   = "recent-empty";
+        empty.textContent = "No videos watched yet.";
+        list.appendChild(empty);
+        return;
+      }
+      recentlyWatched.forEach(function (r) {
+        var li = document.createElement("li");
+        li.className = "recent-item";
+
+        var titleEl         = document.createElement("span");
+        titleEl.className   = "recent-title";
+        titleEl.textContent = r.title || "Guide";
+
+        var btn           = document.createElement("button");
+        btn.className     = "recent-replay";
+        btn.textContent   = "Replay";
+        btn.addEventListener("click", function () {
+          openVideo(r.video, r.title, r.label, r.themeClass);
+          hideRecentPanel();
+        });
+
+        li.appendChild(titleEl);
+        li.appendChild(btn);
+        list.appendChild(li);
+      });
+    }
+
+    function showRecentPanel() {
+      refreshRecentList();
+      document.getElementById("recent-panel").classList.remove("hidden");
+    }
+
+    function hideRecentPanel() {
+      document.getElementById("recent-panel").classList.add("hidden");
+    }
+
+    // Kill Switch + Section Completion
+    function instantKillPendingTriggers() {
+      clearTimeout(watchdogTimer);
+      clearTimeout(qualifiedViewTimer);
+      // proTipTimer is intentionally excluded — the reward must always fire.
+    }
+
+    // Fix 1 — Instant Kill Switch: closeVideo() and hideDrawer() fire simultaneously.
+    function completeSection(hash) {
+      if (!hash || completedSections.has(hash)) return;
+      completedSections.add(hash);
+      persistCompleted();
+      instantKillPendingTriggers();
+      closeVideo();
+      hideDrawer();
+      sendSignal(hash.replace("#", "") + "_SECTION_COMPLETED");
+
+      var allDone = config.completionGates.every(function (g) { return completedSections.has(g); });
+      if (allDone && config.completionGates.length > 0) {
+        scheduleProTip();
+      }
+    }
+
+    function scheduleProTip() {
+      clearTimeout(proTipTimer);
+      proTipTimer = setTimeout(function () {
+        if (lastActiveLabel) {
+          sendSignal(lastActiveLabel + "_SUCCESS_SAVE");
+          lastActiveLabel = null;
+          try { localStorage.removeItem(STORAGE_KEYS.lastLabel); } catch (_) {}
+        }
+        proTipPending = true;
+        showProTipHotspot(true);
+      }, config.timing.proTipReward);
+    }
+
+    function showProTipHotspot(fireSignal) {
+      var cfg    = config.pages[config.homeHash] || {};
+      var drawer = document.getElementById("shield-drawer");
+      document.getElementById("shield-message").innerText = "Pro-Tip Unlocked — your reward is ready.";
+
+      drawer.dataset.video = cfg.video  || "";
+      drawer.dataset.label = "Pro_Tip_Unlocked";
+      drawer.dataset.title = "Pro-Tip Unlocked";
+      drawer.dataset.theme = "vc-success";
+
+      drawer.classList.remove("drawer-hidden");
+      drawer.classList.add("active", "gold");
+      document.getElementById("recent-tab").classList.add("hidden");
+
+      if (fireSignal) sendSignal("Pro_Tip_Unlocked");
+    }
+
+    function dismissProTipHotspot() {
+      proTipPending = false;
+      var drawer = document.getElementById("shield-drawer");
+      drawer.classList.remove("gold");
+      delete drawer.dataset.theme;
+    }
+
+    // Fix 3 — Mute Rule: guard uses the drawer.active class check, not isVideoActive().
+    function restartWatchdog(currentPoint) {
+      if (!config.pages[currentPoint]) return;
+      if (currentPoint === config.homeHash) return;
+      if (completedSections.has(currentPoint)) return;
+
+      // Abort if the help drawer is already visible on screen.
+      if (document.getElementById("shield-drawer").classList.contains("active")) return;
+
+      clearTimeout(watchdogTimer);
+      watchdogTimer = setTimeout(function () {
+        if ((global.location.hash || config.homeHash) !== currentPoint) return;
+
+        // Double-check at fire time — the drawer may have appeared during the wait.
+        if (document.getElementById("shield-drawer").classList.contains("active")) return;
+
+        showShieldUI(currentPoint);
+      }, config.timing.taskRescue);
+    }
+
+    function runWatchdog() {
+      var currentPoint = global.location.hash || config.homeHash;
+      clearTimeout(watchdogTimer);
+
+      // Zone 4 — Navigation Persistence:
+      // If a video is currently in flight, do not reset the drawer or interrupt playback.
+      // The video continues uninterrupted across hash navigation events.
+      var videoInFlight = isVideoActive();
+      if (!videoInFlight) {
+        hideDrawer();
+      }
+
+      // Home routing
+      if (currentPoint === config.homeHash) {
+        sendSuccess();
+        sendSignal("Onboarding_Complete_STOP_SEQUENCE");
+
+        var tasksComplete = config.completionGates.every(function (g) {
+          return completedSections.has(g);
+        });
+
+        if (!tasksComplete) {
+          // State A — Professor: triggers the main guide after homeProfessor delay.
+          watchdogTimer = setTimeout(function () {
+            if ((global.location.hash || config.homeHash) !== config.homeHash) return;
+            if (isVideoActive()) return;
+
+            var cfg    = config.pages["#home-professor"] || {};
+            var drawer = document.getElementById("shield-drawer");
+            document.getElementById("shield-message").innerText = cfg.msg || "";
+            drawer.dataset.video = cfg.video || "";
+            drawer.dataset.label = cfg.label || "";
+            drawer.dataset.title = cfg.title || "";
+            delete drawer.dataset.theme;
+
+            drawer.classList.remove("drawer-hidden", "gold");
+            drawer.classList.add("active");
+            document.getElementById("recent-tab").classList.add("hidden");
+
+            lastActiveLabel = cfg.label;
+            try { localStorage.setItem(STORAGE_KEYS.lastLabel, lastActiveLabel); } catch (_) {}
+            sendSignal(cfg.label);
+
+          }, config.timing.homeProfessor);
+
+        } else {
+          // State B — Coach: surfaces the gold Pro-Tip hotspot after homeCoach delay.
+          watchdogTimer = setTimeout(function () {
+            if ((global.location.hash || config.homeHash) !== config.homeHash) return;
+            proTipPending = true;
+            showProTipHotspot(true);
+          }, config.timing.homeCoach);
+        }
+
+        if (proTipPending) showProTipHotspot(false);
+        return;
+      }
+
+      // Task pages — Zone 3: taskRescue idle timer.
+      if (config.pages[currentPoint] && !completedSections.has(currentPoint)) {
+        if (!videoInFlight) {
+          watchdogTimer = setTimeout(function () {
+            if ((global.location.hash || config.homeHash) !== currentPoint) return;
+            if (isVideoActive()) return;
+            showShieldUI(currentPoint);
+          }, config.timing.taskRescue);
+        }
+      }
+
+      if (proTipPending) showProTipHotspot(false);
+    }
+
+    // Format-Error Shield: fires the drawer immediately on a provably wrong input.
+    // Does not auto-play — the user must click Watch.
+    function fireFormatErrorShield(hash) {
+      if (!config.pages[hash]) return;
+      if (completedSections.has(hash)) return;
+
+      var drawer = document.getElementById("shield-drawer");
+      var alreadyShowingSame =
+        drawer.classList.contains("active") &&
+        !drawer.classList.contains("gold") &&
+        drawer.dataset.label === (config.pages[hash] || {}).label;
+      if (alreadyShowingSame) return;
+
+      instantKillPendingTriggers();
+      showShieldUI(hash);
+    }
+
+    // Event Wiring
+    function wireEvents() {
+
+      // Fix 2 — Alarm Triggers: both vc-close and drawer-close call restartWatchdog().
+
+      // Video close: restarts the rescue alarm after the user closes the player.
+      document.getElementById("vc-close").addEventListener("click", function () {
+        closeVideo();
+        var currentPoint = global.location.hash || config.homeHash;
+        restartWatchdog(currentPoint);
+      });
+
+      document.getElementById("vc-toggle").addEventListener("click", toggleVideoSize);
+
+      // Drawer Watch button: opens the video stored in the drawer dataset.
+      document.getElementById("drawer-watch").addEventListener("click", function () {
+        var drawer     = document.getElementById("shield-drawer");
+        var videoUrl   = drawer.dataset.video;
+        var title      = drawer.dataset.title;
+        var label      = drawer.dataset.label;
+        var themeClass = drawer.dataset.theme || "";
+        if (videoUrl) openVideo(videoUrl, title, label, themeClass);
+      });
+
+      // Drawer close: restarts the rescue alarm after the user dismisses the help bar.
+      document.getElementById("drawer-close").addEventListener("click", function () {
+        var drawer = document.getElementById("shield-drawer");
+        var isGold = drawer.classList.contains("gold");
+        hideDrawer();
+        showRecentTab();
+        if (isGold) dismissProTipHotspot();
+        var currentPoint = global.location.hash || config.homeHash;
+        restartWatchdog(currentPoint);
+      });
+
+      document.getElementById("recent-tab").addEventListener("click", showRecentPanel);
+      document.getElementById("recent-panel-close").addEventListener("click", hideRecentPanel);
+
+      // Global click handler: manages completion buttons and task-page watchdog restarts.
+      document.addEventListener("click", function (e) {
+        var btn = e.target.closest("button");
+        if (!btn) return;
+
+        // Completion buttons use data-shield-complete and data-shield-next attributes.
+        if (btn.hasAttribute("data-shield-complete")) {
+          var section = btn.getAttribute("data-shield-complete");
+          var next    = btn.getAttribute("data-shield-next");
+          instantKillPendingTriggers();
+          completeSection(section);
+          if (next) global.location.hash = next;
+          return;
+        }
+
+        // Any other button interaction on a task page resets the rescue timer.
+        var currentPoint = global.location.hash || config.homeHash;
+        if (config.pages[currentPoint] && currentPoint !== config.homeHash) {
+          restartWatchdog(currentPoint);
+        }
+      });
+
+      bindIdentityCapture();
+      bindFieldTracker();
+
+      global.addEventListener("hashchange", runWatchdog);
+      global.addEventListener("load", runWatchdog);
+    }
+
+    return {
+      fireFormatError: fireFormatErrorShield,
+      completeSection: completeSection,
+      sendSignal:      sendSignal,
+      restartWatchdog: restartWatchdog,
+      _wire:           wireEvents,
+      _run:            runWatchdog
+    };
+  }
+
+
+  // ==========================================
+  // PUBLIC INTERFACE — window.ChurnShield
+  // ==========================================
+  global.ChurnShield = {
+    _engine: null,
+
+    init: function (userConfig) {
+      var merged = Object.assign({}, DEFAULT_CONFIG);
+
+      if (userConfig) {
+        if (userConfig.namespace)       merged.namespace       = userConfig.namespace;
+        if (userConfig.homeHash)        merged.homeHash        = userConfig.homeHash;
+        if (userConfig.accentColor)     merged.accentColor     = userConfig.accentColor;
+        if (userConfig.completionGates) merged.completionGates = userConfig.completionGates;
+        merged.webhooks = Object.assign({}, DEFAULT_CONFIG.webhooks, userConfig.webhooks || {});
+        merged.timing   = Object.assign({}, DEFAULT_CONFIG.timing,   userConfig.timing   || {});
+        merged.pages    = Object.assign({}, DEFAULT_CONFIG.pages,     userConfig.pages    || {});
+      }
+
+      var engine = createEngine(merged);
+      if (engine) {
+        this._engine = engine;
+        injectHTML(merged.accentColor);
+        engine._wire();
+        engine._run();
+      }
+    },
+
+    fireFormatError: function (hash)          { if (this._engine) this._engine.fireFormatError(hash); },
+    completeSection: function (hash)          { if (this._engine) this._engine.completeSection(hash); },
+    sendSignal:      function (event, extras) { if (this._engine) this._engine.sendSignal(event, extras); },
+    restartWatchdog: function (hash)          { if (this._engine) this._engine.restartWatchdog(hash); }
+  };
+
+
+  // ==========================================
+  // AUTO-INSTALLATION — DOMAIN DETECTION
+  //
+  // Resolves the current hostname against the BRANDS registry.
+  // Subdomain matching is supported: "app.payid.app" resolves to the "payid.app" entry.
+  // No match produces a silent return — no console output, no exceptions.
+  // ==========================================
+  (function () {
+    var host    = global.location.hostname;
+    var matched = null;
+
+    Object.keys(BRANDS).forEach(function (brandDomain) {
+      if (host === brandDomain || host.slice(-(brandDomain.length + 1)) === "." + brandDomain) {
+        matched = BRANDS[brandDomain];
+      }
+    });
+
+    if (!matched) return;
+
+    global.ChurnShield.init(matched);
+  })();
+})(window);
+
+
