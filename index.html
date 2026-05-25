@@ -6,7 +6,7 @@
     <title>GetChurnShield — Secure Onboarding Waitlist</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; }
     </style>
 </head>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="hidden sm:block">
-                <a href="#waitlist-section" class="bg-white text-[#0F172A] hover:bg-gray-100 transition-all px-5 py-2 rounded-full text-xs font-bold shadow-md tracking-wide">Join Waitlist</a>
+                <a href="#signup-section" class="bg-white text-[#0F172A] hover:bg-gray-100 transition-all px-5 py-2 rounded-full text-xs font-bold shadow-md tracking-wide">Secure Your Spot</a>
             </div>
         </nav>
     </header>
@@ -47,10 +47,27 @@
                 GetChurnShield injects an intelligent behavioral watchdog directly into user sessions. Guide stuck users with contextual micro-videos and hotspots in real-time, before they close the tab.
             </p>
 
-            <div id="waitlist-section" class="relative mb-16 z-10 w-full max-w-md">
-                <form action="https://formspree.io/f/mqejpqkk" method="POST" class="flex flex-col sm:flex-row gap-2 w-full">
-                    <input type="email" name="email" placeholder="Enter your business email" required class="flex-1 px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white shadow-inner text-sm font-medium">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-4 rounded-xl font-bold text-sm shadow-lg whitespace-nowrap">Join the Waitlist Now</button>
+            <div class="mb-4 bg-orange-50 border border-orange-200 text-orange-800 rounded-xl px-5 py-2.5 text-xs font-bold tracking-wide flex items-center gap-2 shadow-sm max-w-md w-full justify-center">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span><span id="current-month-display">May</span> Intake: Only <span id="slots-count-display">3</span> of 10 slots left this month</span>
+            </div>
+
+            <div id="signup-section" class="relative mb-16 z-10 w-full max-w-md">
+                <form id="funnel-signup-form" class="flex flex-col gap-2 w-full bg-gray-50 border border-gray-200 p-4 rounded-2xl text-left shadow-sm">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wider pl-1">Founder Name</label>
+                            <input type="text" id="signup-name" placeholder="Name" required class="w-full px-3 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white text-xs font-medium">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wider pl-1">Company App URL</label>
+                            <input type="url" id="signup-url" placeholder="https://app.com" required class="w-full px-3 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white text-xs font-medium">
+                        </div>
+                    </div>
+                    <div class="mt-1 flex flex-col sm:flex-row gap-2">
+                        <input type="email" id="signup-email" placeholder="Enter your business email" required class="flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white text-xs font-medium">
+                        <button type="submit" id="signup-btn" class="bg-blue-600 hover:bg-blue-700 transition text-white px-5 py-3 rounded-xl font-bold text-xs shadow-md whitespace-nowrap">Claim Cohort Spot</button>
+                    </div>
                 </form>
 
                 <div class="mt-4 text-sm text-gray-700 font-bold flex items-center justify-center gap-6">
@@ -62,12 +79,6 @@
                         <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                         $300 off first video
                     </span>
-                </div>
-
-                <div class="absolute -right-16 -top-2 hidden md:block select-none">
-                    <svg class="w-14 h-14 text-orange-400 transform scale-x-[-1] rotate-45" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                    </svg>
                 </div>
             </div>
 
@@ -138,26 +149,26 @@
         </section>
 
         <section class="w-full max-w-4xl mb-28">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-            <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-              <h3 class="font-bold text-lg mb-4 text-[#0F172A]">The Hard Way</h3>
-              <ul class="space-y-3 text-sm text-gray-600">
-                <li class="flex justify-between border-b border-gray-100 pb-2"><span>Writing docs</span> <span class="font-semibold">4.5 hrs</span></li>
-                <li class="flex justify-between border-b border-gray-100 pb-2"><span>Debugging CSS</span> <span class="font-semibold">2.5 hrs</span></li>
-                <li class="flex justify-between border-b border-gray-100 pb-2"><span>Support tickets</span> <span class="font-semibold">5 hrs</span></li>
-                <li class="flex justify-between pt-2 mt-3 font-bold">
-                  <span>Total</span> <span class="text-red-600">12 hrs/week wasted</span>
-                </li>
-              </ul>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+                    <h3 class="font-bold text-lg mb-4 text-[#0F172A]">The Hard Way</h3>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li class="flex justify-between border-b border-gray-100 pb-2"><span>Writing docs</span> <span class="font-semibold">4.5 hrs</span></li>
+                        <li class="flex justify-between border-b border-gray-100 pb-2"><span>Debugging CSS</span> <span class="font-semibold">2.5 hrs</span></li>
+                        <li class="flex justify-between border-b border-gray-100 pb-2"><span>Support tickets</span> <span class="font-semibold">5 hrs</span></li>
+                        <li class="flex justify-between pt-2 mt-3 font-bold">
+                            <span>Total</span> <span class="text-red-600">12 hrs/week wasted</span>
+                        </li>
+                    </ul>
+                </div>
 
-            <div class="bg-blue-600 rounded-2xl p-8 text-white flex flex-col justify-center items-center text-center">
-              <div class="text-5xl font-extrabold mb-3">&lt;10 min</div>
-              <p class="text-blue-100 text-sm max-w-xs">
-                GetChurnShield handles detection, guides, and tracking. You paste 1 line of code and go back to building.
-              </p>
+                <div class="bg-blue-600 rounded-2xl p-8 text-white flex flex-col justify-center items-center text-center">
+                    <div class="text-5xl font-extrabold mb-3">&lt;10 min</div>
+                    <p class="text-blue-100 text-sm max-w-xs">
+                        GetChurnShield handles detection, guides, and tracking. You paste 1 line of code and go back to building.
+                    </p>
+                </div>
             </div>
-          </div>
         </section>
 
         <section id="features" class="w-full max-w-4xl border-t border-gray-100 pt-20 text-center">
@@ -190,14 +201,226 @@
             <div class="mt-20 p-8 sm:p-12 bg-[#0F172A] text-white rounded-3xl text-center flex flex-col items-center max-w-3xl mx-auto shadow-xl">
                 <h3 class="text-xl sm:text-2xl font-bold mb-2">Secure your early access slot</h3>
                 <p class="text-xs sm:text-sm text-gray-400 max-w-md mb-6">Join the waitlist to receive your API keys and lock in early access beta pricing metrics before lines close.</p>
-                <a href="#waitlist-section" class="bg-blue-600 hover:bg-blue-700 text-white transition font-bold text-sm px-6 py-3 rounded-xl shadow-lg">Secure Early Access</a>
+                <a href="#signup-section" class="bg-blue-600 hover:bg-blue-700 text-white transition font-bold text-sm px-6 py-3 rounded-xl shadow-lg">Secure Early Access</a>
             </div>
         </section>
     </main>
+
+    <div id="onboarding-modal" class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-gray-100 overflow-hidden text-left flex flex-col">
+            
+            <div class="bg-[#0F172A] text-white p-6">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-bold text-lg tracking-tight">Onboarding Configuration</h3>
+                    <span id="step-indicator" class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">Step 1 of 2</span>
+                </div>
+                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-blue-500 h-full w-1/2 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <div class="p-6 flex-1">
+                <div id="modal-form-wrapper">
+                    <form id="onboarding-data-form" class="space-y-4">
+                        
+                        <input type="hidden" name="name" id="hidden-lead-name">
+                        <input type="hidden" name="company_url" id="hidden-lead-url">
+                        <input type="hidden" name="email" id="hidden-lead-email">
+
+                        <div id="modal-step-1" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">1] Where are your users leaving?</label>
+                                <input type="text" name="dropoff_route" id="ob-friction-target" placeholder="e.g. /dashboard/setup" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium bg-gray-50">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">2] What's your current churn rate?</label>
+                                <input type="text" name="churn_rate" id="ob-churn-rate" placeholder="e.g. 12%" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium bg-gray-50">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Company Monthly Active Users (MAU)</label>
+                                <input type="number" name="mau" id="ob-mau" placeholder="e.g. 3000" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium bg-gray-50">
+                            </div>
+                        </div>
+
+                        <div id="modal-step-2" class="space-y-4 hidden">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Choose Implementation Setup</label>
+                                <div class="grid grid-cols-1 gap-2 mt-1">
+                                    <label class="border-2 border-blue-600 bg-blue-50/40 rounded-xl p-3 flex items-start gap-3 cursor-pointer" id="label-preference-diy">
+                                        <input type="radio" name="setup_model" value="DIY Setup" checked class="mt-1 accent-blue-600" onclick="document.getElementById('label-preference-diy').className='border-2 border-blue-600 bg-blue-50/40 rounded-xl p-3 flex items-start gap-3 cursor-pointer'; document.getElementById('label-preference-dfy').className='border border-gray-200 rounded-xl p-3 flex items-start gap-3 cursor-pointer';">
+                                        <div>
+                                            <p class="text-xs font-bold text-[#0F172A]">DIY Setup Model</p>
+                                            <p class="text-[11px] text-gray-500">You will record and upload your own custom video assets completely by yourself.</p>
+                                        </div>
+                                    </label>
+                                    <label class="border border-gray-200 rounded-xl p-3 flex items-start gap-3 cursor-pointer" id="label-preference-dfy">
+                                        <input type="radio" name="setup_model" value="DFY Premium" class="mt-1 accent-blue-600" onclick="document.getElementById('label-preference-dfy').className='border-2 border-blue-600 bg-blue-50/40 rounded-xl p-3 flex items-start gap-3 cursor-pointer'; document.getElementById('label-preference-diy').className='border border-gray-200 rounded-xl p-3 flex items-start gap-3 cursor-pointer';">
+                                        <div>
+                                            <p class="text-xs font-bold text-[#0F172A]">DFY Premium Strategy Core</p>
+                                            <p class="text-[11px] text-gray-500">Have ChurnShield experts script, film, and fully deploy your custom micros for you.</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-100 flex justify-end gap-2">
+                            <button type="button" id="modal-back-btn" class="hidden border border-gray-300 hover:bg-gray-50 transition text-gray-700 font-bold text-xs px-5 py-3 rounded-xl">Back</button>
+                            <button type="button" id="modal-next-btn" class="bg-blue-600 hover:bg-blue-700 transition text-white font-bold text-xs px-5 py-3 rounded-xl shadow-md">Continue</button>
+                            <button type="submit" id="modal-submit-btn" class="hidden bg-emerald-600 hover:bg-emerald-700 transition text-white font-bold text-xs px-5 py-3 rounded-xl shadow-md">Complete Registration</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="calendar-modal" class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full h-[85vh] shadow-2xl border border-gray-100 overflow-hidden flex flex-col text-left">
+            <div class="bg-emerald-600 text-white p-4 flex justify-between items-center shadow-md">
+                <div>
+                    <h3 class="font-bold text-sm">🔥 Sync Slot Provisionally Allocated</h3>
+                    <p class="text-[11px] text-emerald-100">Schedule your setup meeting to receive your unique system tag snippet.</p>
+                </div>
+                <button onclick="window.location.reload();" class="text-xs font-bold bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-lg transition">Close</button>
+            </div>
+            <div class="flex-1 bg-gray-50 relative">
+                <iframe src="https://calendly.com/getchurnshield/30min" class="w-full h-full border-none" allow="camera; microphone; autoplay; encrypted-media;"></iframe>
+            </div>
+        </div>
+    </div>
 
     <footer class="w-full border-t border-gray-100 py-8 text-center text-xs text-gray-400 font-medium bg-white">
         <p>&copy; 2026 GetChurnShield Engine Inc. All rights reserved.</p>
     </footer>
 
+    <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyfdt8Q6UW1wV6wXReXE-g8z6fmqLsYg_psEzgeh8HLYWrBSc22mm_UlAu0PgW1nRgagA/exec";
+
+        const slotsCounter = document.getElementById("slots-count-display");
+        const monthCounter = document.getElementById("current-month-display");
+        const signupForm = document.getElementById("funnel-signup-form");
+        const onboardingForm = document.getElementById("onboarding-data-form");
+        const onboardingModal = document.getElementById("onboarding-modal");
+        const calendarModal = document.getElementById("calendar-modal");
+        const modalFormWrapper = document.getElementById("modal-form-wrapper");
+
+        const step1Container = document.getElementById("modal-step-1");
+        const step2Container = document.getElementById("modal-step-2");
+        const stepIndicator = document.getElementById("step-indicator");
+        const progressBar = document.getElementById("progress-bar");
+        const backBtn = document.getElementById("modal-back-btn");
+        const nextBtn = document.getElementById("modal-next-btn");
+        const submitBtn = document.getElementById("modal-submit-btn");
+
+        const monthsArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        
+        const systemDateInstance = new Date(2026, 4, 25, 16, 56); 
+        const activeMonthName = monthsArray[systemDateInstance.getMonth()];
+        const storageYearMonthKey = `shield_slots_${systemDateInstance.getFullYear()}_${systemDateInstance.getMonth()}`;
+        
+        monthCounter.textContent = activeMonthName;
+
+        let activeRemainingSlots = localStorage.getItem(storageYearMonthKey);
+        if (activeRemainingSlots === null) {
+            activeRemainingSlots = "3";
+            localStorage.setItem(storageYearMonthKey, activeRemainingSlots);
+        }
+        slotsCounter.textContent = activeRemainingSlots;
+
+        signupForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const btn = document.getElementById("signup-btn");
+            btn.disabled = true;
+            btn.textContent = "Processing...";
+
+            document.getElementById("hidden-lead-name").value = document.getElementById("signup-name").value;
+            document.getElementById("hidden-lead-url").value = document.getElementById("signup-url").value;
+            document.getElementById("hidden-lead-email").value = document.getElementById("signup-email").value;
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.textContent = "Claim Cohort Spot";
+                onboardingModal.classList.remove("hidden");
+            }, 600);
+        });
+
+        nextBtn.addEventListener("click", () => {
+            if (!document.getElementById("ob-friction-target").value || !document.getElementById("ob-churn-rate").value || !document.getElementById("ob-mau").value) {
+                alert("Please fill out all visible configuration fields.");
+                return;
+            }
+            step1Container.classList.add("hidden");
+            step2Container.classList.remove("hidden");
+            backBtn.classList.remove("hidden");
+            nextBtn.classList.add("hidden");
+            submitBtn.classList.remove("hidden");
+            
+            stepIndicator.textContent = "Step 2 of 2";
+            progressBar.style.width = "100%";
+        });
+
+        backBtn.addEventListener("click", () => {
+            step1Container.classList.remove("hidden");
+            step2Container.classList.add("hidden");
+            backBtn.classList.add("hidden");
+            nextBtn.classList.remove("hidden");
+            submitBtn.classList.add("hidden");
+            
+            stepIndicator.textContent = "Step 1 of 2";
+            progressBar.style.width = "50%";
+        });
+
+        onboardingForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const formPayloadData = new FormData(onboardingForm);
+
+            modalFormWrapper.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-8 text-center">
+                    <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <h4 class="text-sm font-bold text-[#0F172A] mb-1">Analyzing Conversion Integrity</h4>
+                    <div class="w-full max-w-xs bg-gray-100 rounded-lg p-3 font-mono text-[10px] text-gray-500 space-y-1 text-left h-24 overflow-hidden">
+                        <p id="log-1" class="hidden text-emerald-600">✓ Initializing secure data tunnel...</p>
+                        <p id="log-2" class="hidden text-emerald-600">✓ Syncing parameters to secure sheet infrastructure...</p>
+                        <p id="log-3" class="hidden text-blue-600 animate-pulse">⚡ Allocating enterprise cohort slot reserves...</p>
+                    </div>
+                </div>
+            `;
+
+            setTimeout(() => document.getElementById("log-1").classList.remove("hidden"), 400);
+            setTimeout(() => document.getElementById("log-2").classList.remove("hidden"), 1000);
+            setTimeout(() => document.getElementById("log-3").classList.remove("hidden"), 1600);
+
+            const urlEncodedPayload = new URLSearchParams();
+            for (const pair of formPayloadData.entries()) {
+                urlEncodedPayload.append(pair[0], pair[1]);
+            }
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    body: urlEncodedPayload,
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                });
+                
+                let liveCount = parseInt(localStorage.getItem(storageYearMonthKey), 10) || 3;
+                if (liveCount > 1) {
+                    liveCount -= 1;
+                    localStorage.setItem(storageYearMonthKey, liveCount.toString());
+                    slotsCounter.textContent = liveCount.toString();
+                }
+
+                onboardingModal.classList.add("hidden");
+                calendarModal.classList.remove("hidden");
+
+            } catch (err) {
+                onboardingModal.classList.add("hidden");
+                calendarModal.classList.remove("hidden");
+            }
+        });
+    </script>
 </body>
 </html>
