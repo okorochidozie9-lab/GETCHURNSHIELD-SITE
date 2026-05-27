@@ -12,49 +12,32 @@
 </head>
 <body class="text-[#0F172A] antialiased selection:bg-blue-600 selection:text-white">
 
-    <!-- Fixed Header with Optimized Mobile Responsiveness to Prevent Overcrowding -->
-    <!-- Main Header Bar Container -->
-<div class="w-full bg-slate-950 rounded-full px-2 sm:px-6 py-2 flex items-center justify-between gap-1 sm:gap-4 overflow-hidden">
-    
-    <!-- 1. Left Logo Pill -->
-    <div class="flex items-center shrink-0 max-w-[110px] sm:max-w-[200px]">
-        <div class="bg-white rounded-full px-2 sm:px-4 py-1 flex items-center justify-center shrink-0 w-full h-7 sm:h-9 overflow-hidden">
-            <img src="logo.jpg" alt="GetChurnShield" class="h-[14px] sm:h-[20px] w-auto max-w-full object-contain shrink-0">
-        </div>
-    </div>
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 p-4">
+        <div class="w-full bg-slate-950 rounded-full px-2 sm:px-6 py-2 flex items-center justify-between gap-1 sm:gap-4 overflow-hidden">
 
-    <!-- 2. Middle Links (Optimized to prevent layout push) -->
-    <div class="flex items-center gap-1.5 sm:gap-6 text-[9px] sm:text-xs font-bold tracking-tight text-gray-200 shrink">
-        <a href="#how-it-works" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">How it works</a>
-        <a href="#comparison" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Benefits</a>
-        <a href="#features" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Infrastructure</a>
-    </div>
+            <!-- 1. Left Logo Pill -->
+            <div class="flex items-center shrink-0 max-w-[110px] sm:max-w-[200px]">
+                <div class="bg-white rounded-full px-2 sm:px-4 py-1 flex items-center justify-center shrink-0 w-full h-7 sm:h-9 overflow-hidden">
+                    <img src="logo.jpg" alt="GetChurnShield" class="h-[14px] sm:h-[20px] w-auto max-w-full object-contain shrink-0">
+                </div>
+            </div>
 
-    <!-- 3. Right CTA Button (Forced to stay inside the container) -->
-    <div class="flex items-center shrink-0">
-        <a href="#apply" class="bg-white text-slate-950 font-bold text-[10px] sm:text-xs px-2.5 sm:px-5 py-1.5 sm:py-2 rounded-full hover:bg-gray-100 transition-all text-center whitespace-nowrap shadow-sm">
-            Secure Spot
-        </a>
-    </div>
+            <!-- 2. Middle Links -->
+            <div class="flex items-center gap-1.5 sm:gap-6 text-[9px] sm:text-xs font-bold tracking-tight text-gray-200 shrink">
+                <a href="#how-it-works" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">How it works</a>
+                <a href="#comparison" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Benefits</a>
+                <a href="#features" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Infrastructure</a>
+            </div>
 
-</div>
-
-
-            <!-- Middle Links Forced on All Viewports -->
-<div class="flex items-center gap-2 sm:gap-6 text-[10px] sm:text-xs font-bold tracking-tight sm:tracking-wide text-gray-200">
-    <a href="#how-it-works" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">How it works</a>
-    <a href="#comparison" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Benefits</a>
-    <a href="#features" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Infrastructure</a>
-</div>
-
-
-            <!-- Right-aligned CTA optimized for narrow viewports -->
-            <div class="shrink-0">
-                <a href="#signup-section" class="bg-white text-[#0F172A] hover:bg-gray-100 transition-all px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold shadow-md tracking-wide whitespace-nowrap">
+            <!-- 3. Right CTA Button -->
+            <div class="flex items-center shrink-0">
+                <a href="#signup-section" class="bg-white text-slate-950 font-bold text-[10px] sm:text-xs px-2.5 sm:px-5 py-1.5 sm:py-2 rounded-full hover:bg-gray-100 transition-all text-center whitespace-nowrap shadow-sm">
                     Secure Spot
                 </a>
             </div>
-        </nav>
+
+        </div>
     </header>
 
     <!-- Main Container with significant top padding to clear the fixed header completely -->
@@ -209,7 +192,7 @@
     <!-- Fully Updated Multi-Step Smart Qualification Onboarding Modal -->
     <div id="onboarding-modal" class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-gray-100 overflow-hidden text-left flex flex-col">
-            
+
             <!-- Modal Header Context Status Bar -->
             <div class="bg-[#0F172A] text-white p-6">
                 <div class="flex justify-between items-center mb-2">
@@ -228,7 +211,7 @@
                     <input type="hidden" id="hidden-lead-name">
                     <input type="hidden" id="hidden-lead-url">
                     <input type="hidden" id="hidden-lead-email">
-                    
+
                     <!-- Step 1 Layout Layer: Target Metrics Filters -->
                     <div id="modal-step-1" class="space-y-4">
                         <div>
@@ -316,7 +299,7 @@
             const churnValue = document.getElementById("ob-churn").value;
             const headacheValue = document.getElementById("ob-headache").value;
 
-            if (!mrrValue || !churnValue || !headacheValue) {
+            if (!mrrValue ||!churnValue ||!headacheValue) {
                 alert("Please complete the required metric selections.");
                 return;
             }
