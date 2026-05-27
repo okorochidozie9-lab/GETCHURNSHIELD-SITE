@@ -16,21 +16,21 @@
     <header class="fixed top-0 left-0 right-0 z-50 p-4">
         <div class="w-full bg-slate-950 rounded-full px-2 sm:px-6 py-2 flex items-center justify-between gap-1 sm:gap-4 overflow-hidden">
 
-            <!-- 1. Left Logo Pill -->
+            <!-- Left Logo Pill -->
             <div class="flex items-center shrink-0 max-w-[110px] sm:max-w-[200px]">
                 <div class="bg-white rounded-full px-2 sm:px-4 py-1 flex items-center justify-center shrink-0 w-full h-7 sm:h-9 overflow-hidden">
                     <img src="logo.jpg" alt="GetChurnShield" class="h-[14px] sm:h-[20px] w-auto max-w-full object-contain shrink-0">
                 </div>
             </div>
 
-            <!-- 2. Middle Links -->
+            <!-- Middle Links -->
             <div class="flex items-center gap-1.5 sm:gap-6 text-[9px] sm:text-xs font-bold tracking-tight text-gray-200 shrink">
                 <a href="#how-it-works" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">How it works</a>
                 <a href="#comparison" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Benefits</a>
                 <a href="#features" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Infrastructure</a>
             </div>
 
-            <!-- 3. Right CTA Button -->
+            <!-- Right CTA Button -->
             <div class="flex items-center shrink-0">
                 <a href="#signup-section" class="bg-white text-slate-950 font-bold text-[10px] sm:text-xs px-2.5 sm:px-5 py-1.5 sm:py-2 rounded-full hover:bg-gray-100 transition-all text-center whitespace-nowrap shadow-sm">
                     Secure Spot
@@ -40,7 +40,7 @@
         </div>
     </header>
 
-    <!-- Main Container with significant top padding to clear the fixed header completely -->
+    <!-- Main Container -->
     <main class="pt-32 sm:pt-40 pb-24 px-4 flex flex-col items-center text-center max-w-5xl mx-auto">
 
         <section class="w-full flex flex-col items-center mb-28">
@@ -189,18 +189,25 @@
         </section>
     </main>
 
-    <!-- Fully Updated Multi-Step Smart Qualification Onboarding Modal -->
+    <!-- Multi-Step Smart Qualification Onboarding Modal -->
     <div id="onboarding-modal" class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-gray-100 overflow-hidden text-left flex flex-col">
 
             <!-- Modal Header Context Status Bar -->
             <div class="bg-[#0F172A] text-white p-6">
                 <div class="flex justify-between items-center mb-2">
-                    <h3 class="font-bold text-base sm:text-lg tracking-tight">Onboarding Diagnostic</h3>
+                    <div class="flex flex-col">
+                        <h3 class="font-bold text-base sm:text-lg tracking-tight">Onboarding Diagnostic</h3>
+                        <p id="header-social-proof" class="text-[11px] text-emerald-400 font-medium transition-all duration-300">Analyzing application parameters...</p>
+                    </div>
                     <span id="step-indicator" class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">Step 1 of 2</span>
                 </div>
-                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="bg-blue-500 h-full w-1/2 transition-all duration-300"></div>
+                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden relative">
+                    <div id="progress-bar" class="bg-blue-500 h-full w-1/3 transition-all duration-300"></div>
+                </div>
+                <div class="flex justify-between text-[10px] text-gray-400 font-semibold mt-1.5">
+                    <span>Profile Start</span>
+                    <span id="numeric-progress-score" class="text-blue-400">35% Complete</span>
                 </div>
             </div>
 
@@ -233,6 +240,28 @@
                                <option value="high">5%+</option>
                             </select>
                         </div>
+                        
+                        <!-- Video Execution Delivery Choice Strategy -->
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Onboarding Video Assets Strategy</label>
+                            <div class="grid grid-cols-1 gap-2 mt-1">
+                                <label class="border border-gray-200 rounded-xl p-3 flex items-start gap-3 cursor-pointer hover:bg-gray-50 transition bg-white">
+                                    <input type="radio" name="video-strategy" value="diy" checked class="mt-1 text-blue-600 focus:ring-blue-500">
+                                    <div class="text-xs">
+                                        <span class="font-bold text-gray-800 block">DIY (Do-It-Yourself) Onboarding</span>
+                                        <span class="text-gray-500 font-medium">Your internal team handles scripting, shooting, and editing onboarding videos using self-serve layout systems.</span>
+                                    </div>
+                                </label>
+                                <label class="border border-gray-200 rounded-xl p-3 flex items-start gap-3 cursor-pointer hover:bg-gray-50 transition bg-white">
+                                    <input type="radio" name="video-strategy" value="dfy" class="mt-1 text-blue-600 focus:ring-blue-500">
+                                    <div class="text-xs">
+                                        <span class="font-bold text-blue-600 block">DFY (Done-For-You) Video Production Wrapper</span>
+                                        <span class="text-gray-500 font-medium">Our production crew handles scripts, captures custom UI footage, edits high-quality assets, and ships complete retention runs.</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
                         <div>
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Biggest Churn Headache Right Now</label>
                             <input type="text" id="ob-headache" placeholder="e.g. dropoffs during database setup configuration sync step" required class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600">
@@ -245,7 +274,17 @@
                             <p class="text-sm font-bold text-emerald-600">⚡ Profile Approved — High Priority Routing Slot Allocated</p>
                             <p class="text-xs text-gray-500">Pick an available 20-minute slot below to sync layout configuration parameters.</p>
                         </div>
-                        <div class="w-full h-[340px] bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden">
+
+                        <!-- Dynamic Personalized Founder Message Container -->
+                        <div id="founder-note-card" class="bg-blue-50/80 border border-blue-200 rounded-2xl p-4 text-xs text-slate-800 font-medium leading-relaxed shadow-sm">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] text-white font-bold font-mono">GS</div>
+                                <span class="font-bold text-slate-900">Message from GetChurnShield Operations</span>
+                            </div>
+                            <p id="founder-custom-text">Hey Founder, noticed your production metrics. Let's map out a structural plan to eliminate that system bottleneck completely during our onboarding sync call.</p>
+                        </div>
+
+                        <div class="w-full h-[280px] bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden">
                             <!-- Calendly Sandbox Interface -->
                             <iframe src="https://calendly.com/getchurnshield/20min" class="w-full h-full border-none" allow="camera; microphone; autoplay;"></iframe>
                         </div>
@@ -258,7 +297,7 @@
                         <p class="text-xs text-gray-500 max-w-sm mx-auto leading-relaxed">
                             We balance engineering updates on high-volume product architectures first. We've captured your details and sent our custom orientation playbooks straight to your email inbox.
                         </p>
-                        <button type="button" onclick="window.location.reload();" class="mt-2 w-full bg-[#0F172A] hover:bg-slate-800 text-white text-xs font-bold py-3 rounded-xl transition">Acknowledge</button>
+                        <button type="button" id="waitlist-clear-btn" class="mt-2 w-full bg-[#0F172A] hover:bg-slate-800 text-white text-xs font-bold py-3 rounded-xl transition">Acknowledge</button>
                     </div>
 
                     <!-- Form Trigger Element Area -->
@@ -285,42 +324,134 @@
         const nextBtn = document.getElementById("modal-next-btn");
         const stepIndicator = document.getElementById("step-indicator");
         const progressBar = document.getElementById("progress-bar");
+        
+        // Progress UI Trackers
+        const progressScoreText = document.getElementById("numeric-progress-score");
+        const headerSocialProof = document.getElementById("header-social-proof");
+        const founderText = document.getElementById("founder-custom-text");
+        const waitlistClearBtn = document.getElementById("waitlist-clear-btn");
+
+        // Step Form Input Element Listeners
+        const mrrSelect = document.getElementById("ob-mrr");
+        const churnSelect = document.getElementById("ob-churn");
+        const headacheInput = document.getElementById("ob-headache");
+
+        // Synchronize state entries with LocalStorage Cache Data
+        function cacheCurrentState() {
+            const videoStrategy = document.querySelector('input[name="video-strategy"]:checked')?.value || 'diy';
+            const funnelState = {
+                mrr: mrrSelect.value,
+                churn: churnSelect.value,
+                strategy: videoStrategy,
+                headache: headacheInput.value,
+                leadName: document.getElementById("hidden-lead-name").value,
+                leadUrl: document.getElementById("hidden-lead-url").value,
+                leadEmail: document.getElementById("hidden-lead-email").value
+            };
+            localStorage.setItem("gcs_funnel_state", JSON.stringify(funnelState));
+        }
+
+        // Listen for user changes to sync state updates immediately
+        mrrSelect.addEventListener("change", cacheCurrentState);
+        churnSelect.addEventListener("change", cacheCurrentState);
+        headacheInput.addEventListener("input", cacheCurrentState);
+        document.querySelectorAll('input[name="video-strategy"]').forEach(radio => {
+            radio.addEventListener("change", cacheCurrentState);
+        });
+
+        // Load Cached Funnel Profile Parameters
+        function loadCachedState() {
+            const savedData = localStorage.getItem("gcs_funnel_state");
+            if (!savedData) return;
+            try {
+                const state = JSON.parse(savedData);
+                if (state.mrr) mrrSelect.value = state.mrr;
+                if (state.churn) churnSelect.value = state.churn;
+                if (state.headache) headacheInput.value = state.headache;
+                if (state.strategy) {
+                    const targetRadio = document.querySelector(`input[name="video-strategy"][value="${state.strategy}"]`);
+                    if (targetRadio) targetRadio.checked = true;
+                }
+                if (state.leadName) document.getElementById("hidden-lead-name").value = state.leadName;
+                if (state.leadUrl) document.getElementById("hidden-lead-url").value = state.leadUrl;
+                if (state.leadEmail) document.getElementById("hidden-lead-email").value = state.leadEmail;
+            } catch (err) {
+                console.error("Error reading cache profile state data references.", err);
+            }
+        }
+
+        // Initialize state loading sequence execution
+        window.addEventListener("DOMContentLoaded", loadCachedState);
 
         signupForm.addEventListener("submit", (e) => {
             e.preventDefault();
             document.getElementById("hidden-lead-name").value = document.getElementById("signup-name").value;
             document.getElementById("hidden-lead-url").value = document.getElementById("signup-url").value;
             document.getElementById("hidden-lead-email").value = document.getElementById("signup-email").value;
+            
+            cacheCurrentState();
+
+            // Set Step 1 Progress Status State metrics
+            progressBar.style.width = "35%";
+            progressScoreText.textContent = "35% Complete";
+            headerSocialProof.textContent = "⚡ 14 active software operators joined the pipeline today";
+
             onboardingModal.classList.remove("hidden");
         });
 
         nextBtn.addEventListener("click", () => {
-            const mrrValue = document.getElementById("ob-mrr").value;
-            const churnValue = document.getElementById("ob-churn").value;
-            const headacheValue = document.getElementById("ob-headache").value;
+            const mrrValue = mrrSelect.value;
+            const churnValue = churnSelect.value;
+            const headacheValue = headacheInput.value;
+            const selectedStrategy = document.querySelector('input[name="video-strategy"]:checked').value;
 
-            if (!mrrValue ||!churnValue ||!headacheValue) {
+            if (!mrrValue || !churnValue || !headacheValue) {
                 alert("Please complete the required metric selections.");
                 return;
             }
 
-            // Automated Gate Logic Filtration
-            if (mrrValue === "low" || churnValue === "low") {
-                // Low qualification: Shift smoothly to Waitlist Card Frame
+            cacheCurrentState();
+
+            // High Value Account Routing Logic Filter (Defines Qualification Matrix)
+            if (mrrValue === "low" || churnValue === "none" || churnValue === "low") {
+                // Route to low tier waitlist card element
                 step1Container.classList.add("hidden");
                 modalActions.classList.add("hidden");
                 waitlistContainer.classList.remove("hidden");
-                stepIndicator.textContent = "Allocation Pending";
+                stepIndicator.textContent = "Allocation Closed";
+                
                 progressBar.style.width = "100%";
                 progressBar.classList.replace("bg-blue-500", "bg-amber-500");
+                progressScoreText.textContent = "Processing Finished";
+                progressScoreText.classList.replace("text-blue-400", "text-amber-400");
+                headerSocialProof.textContent = "⚠️ Enterprise optimization limits reached for lower-tier profiles.";
             } else {
-                // High ticket verified: Unlock the calendar layer interface
+                // High Qualification Pipeline Routing Execution
                 step1Container.classList.add("hidden");
                 step2Container.classList.remove("hidden");
                 modalActions.classList.add("hidden");
                 stepIndicator.textContent = "Step 2 of 2";
+                
                 progressBar.style.width = "100%";
+                progressScoreText.textContent = "95% Complete";
+                headerSocialProof.textContent = "🔥 Guaranteed Booking Slot Active — Only 2 priority allocations remaining.";
+
+                // Generate specific personalized message variant copy parameters
+                let contextNote = "";
+                if (selectedStrategy === "dfy") {
+                    contextNote = `Hey Founder, noticed you preferred the <strong>DFY Video Wrapper execution model</strong> to target your <strong>${headacheValue}</strong> dropoff. Our production crew will outline a specialized micro-video scripting roadmap specifically for this loop before our meeting begins.`;
+                } else {
+                    contextNote = `Hey Founder, since you are looking to deploy your own assets via our <strong>DIY workflow engine</strong> to resolve your <strong>${headacheValue}</strong> friction path, we will prepare custom modular framework blueprints to help your design team hit the ground running during our call.`;
+                }
+                
+                founderText.innerHTML = contextNote;
             }
+        });
+
+        // Safe Waitlist Reset Event Trigger Listener
+        waitlistClearBtn.addEventListener("click", () => {
+            localStorage.removeItem("gcs_funnel_state");
+            window.location.reload();
         });
     </script>
 </body>
