@@ -25,6 +25,7 @@
                 <a href="#how-it-works" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">How it works</a>
                 <a href="#comparison" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Benefits</a>
                 <a href="#features" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Infrastructure</a>
+                <a href="#pricing" class="hover:text-white transition-colors duration-200 py-1 whitespace-nowrap">Pricing & Sandbox</a>
             </div>
 
             <div class="flex items-center shrink-0">
@@ -148,7 +149,7 @@
             </div>
         </section>
 
-        <section id="features" class="w-full max-w-4xl border-t border-gray-100 pt-20 text-center px-2 sm:px-0">
+        <section id="features" class="w-full max-w-4xl border-t border-gray-100 pt-20 text-center px-2 sm:px-0 mb-28">
             <h2 class="text-2xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-4">Complete Operational Onboarding Infrastructure.</h2>
             <p class="text-xs sm:text-base text-gray-500 max-w-2xl mx-auto mb-14">We combine a real-time behavioral watchdog snippet script with an automated, premium asset delivery pipeline.</p>
 
@@ -175,6 +176,186 @@
                 </div>
             </div>
         </section>
+
+        <section id="pricing" class="w-full max-w-4xl border-t border-gray-100 pt-20 text-center px-2 sm:px-0 mb-28">
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-4">
+                Transparent Snippet Setup. Performance Pricing.
+            </h2>
+            <p class="text-xs sm:text-base text-gray-500 max-w-2xl mx-auto mb-14">
+                Deploy the low-latency runtime tracking code in minutes. Align asset overhead directly with actual revenue saved.
+            </p>
+
+            <div class="bg-slate-950 rounded-2xl p-6 sm:p-8 mb-12 shadow-xl text-left border border-slate-900">
+                <div class="flex flex-col lg:flex-row gap-8 items-stretch">
+                    
+                    <div class="w-full lg:w-2/5 flex flex-col justify-between gap-3">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full">Developer Sandbox</span>
+                            <h3 class="text-lg font-bold mt-3 text-white">3-Minute Activation Loop</h3>
+                        </div>
+                        
+                        <div class="space-y-2 flex-1 flex flex-col justify-center">
+                            <button type="button" onclick="switchDocStep(1)" id="step-btn-1" class="w-full text-left p-3.5 rounded-xl border border-blue-500/30 bg-blue-500/5 transition-all outline-none">
+                                <div class="text-xs font-bold text-white flex items-center gap-2">
+                                    <span class="w-5 h-5 rounded-full bg-blue-600 text-[10px] flex items-center justify-center font-bold">1</span>
+                                    Embed Script Runtime
+                                </div>
+                                <p class="text-[11px] text-gray-400 ml-7 mt-0.5 font-medium">Drop the unified V2 tracking snippet directly into your main header block.</p>
+                            </button>
+
+                            <button type="button" onclick="switchDocStep(2)" id="step-btn-2" class="w-full text-left p-3.5 rounded-xl border border-transparent hover:bg-white/5 transition-all outline-none">
+                                <div class="text-xs font-bold text-gray-400 flex items-center gap-2">
+                                    <span class="w-5 h-5 rounded-full bg-slate-800 text-[10px] flex items-center justify-center font-bold">2</span>
+                                    Identify Workspace Context
+                                </div>
+                                <p class="text-[11px] text-gray-500 ml-7 mt-0.5 font-medium">Pass dynamic workspace elements to sync custom styling parameters natively.</p>
+                            </button>
+
+                            <button type="button" onclick="switchDocStep(3)" id="step-btn-3" class="w-full text-left p-3.5 rounded-xl border border-transparent hover:bg-white/5 transition-all outline-none">
+                                <div class="text-xs font-bold text-gray-400 flex items-center gap-2">
+                                    <span class="w-5 h-5 rounded-full bg-slate-800 text-[10px] flex items-center justify-center font-bold">3</span>
+                                    Initialize Watchdog Shields
+                                </div>
+                                <p class="text-[11px] text-gray-500 ml-7 mt-0.5 font-medium">The engine tracks user anomalies and automates hyper-targeted video playbacks.</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-3/5 bg-slate-900 border border-slate-800 rounded-xl p-5 font-mono text-[11px] sm:text-xs relative flex flex-col shadow-inner min-h-[180px]">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 shrink-0">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500/40"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/40"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-green-500/40"></span>
+                                <span class="text-[10px] text-slate-500 font-mono ml-1.5" id="terminal-filename">index.html</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1 flex flex-col justify-center overflow-x-auto">
+                            <pre id="code-block-1" class="text-slate-300 leading-relaxed"><code><span class="text-slate-500">&lt;!-- Paste inside your application header tag --&gt;</span>
+&lt;<span class="text-blue-400">script</span> <span class="text-purple-400">async</span> <span class="text-yellow-400">src</span>=<span class="text-green-400">"https://cdn.getchurnshield.com/v2/sdk.js"</span>&gt;&lt;/<span class="text-blue-400">script</span>&gt;
+&lt;<span class="text-blue-400">script</span>&gt;
+  <span class="text-purple-400">window</span>.ChurnShield = <span class="text-purple-400">window</span>.ChurnShield || [];
+  <span class="text-yellow-400">ChurnShield</span>.<span class="text-blue-400">push</span>([<span class="text-green-400">'init'</span>, <span class="text-green-400">'your_account_token'</span>]);
+&lt;/<span class="text-blue-400">script</span>&gt;</code></pre>
+
+                            <pre id="code-block-2" class="text-slate-300 leading-relaxed hidden"><code><span class="text-slate-500">// Sync interface identity attributes dynamically</span>
+<span class="text-purple-400">window</span>.ChurnShield.<span class="text-blue-400">push</span>([<span class="text-green-400">'identify'</span>, {
+  userId: <span class="text-green-400">"user_ctx_4091"</span>,
+  theme: {
+    primaryColor: <span class="text-green-400">"#2563EB"</span>,
+    fontFamily: <span class="text-green-400">"Plus Jakarta Sans"</span>
+  }
+}]);</code></pre>
+
+                            <pre id="code-block-3" class="text-slate-300 leading-relaxed hidden"><code><span class="text-slate-500">// Engine monitors live paths and handles micro-video execution</span>
+<span class="text-purple-400">window</span>.ChurnShield.<span class="text-blue-400">on</span>(<span class="text-green-400">'hotspot_active'</span>, (<span class="text-yellow-400">session</span>) =&gt; {
+  <span class="text-purple-400">console</span>.<span class="text-blue-400">log</span>(<span class="text-green-400">`Retention runtime rendering on route: ${session.path}`</span>);
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 sm:p-8 mb-6 text-center shadow-sm group">
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white font-bold text-[9px] uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">
+                    Baseline Infrastructure Utility Fee
+                </div>
+                
+                <p class="text-[10px] font-bold text-blue-700 tracking-wider uppercase mb-1">Applies to All Accounts</p>
+                <h3 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mb-3">20% of Saved LTV</h3>
+                <p class="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto font-medium">
+                    Our platform logic applies cleanly to every implementation path. 
+                    <span class="text-blue-600 font-bold underline decoration-dashed cursor-pointer inline-flex items-center gap-0.5 relative" onmouseenter="toggleProtocolTooltip(true)" onmouseleave="toggleProtocolTooltip(false)">
+                        No Saved User, No Pay
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        
+                        <span id="saved-protocol-tooltip" class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-72 sm:w-80 bg-slate-950 border border-slate-800 p-4 rounded-xl text-left text-[11px] text-gray-300 shadow-xl hidden opacity-0 transition-opacity pointer-events-none z-50 font-normal leading-relaxed">
+                            <span class="block font-bold text-white text-xs mb-1.5 border-b border-slate-800 pb-1">📊 Saved User Definition Protocol</span>
+                            A customer session is only flagged as successfully saved by ChurnShield if it tracks through four explicit metrics:<br><br>
+                            <span class="text-white font-semibold">1. Trigger:</span> User runs into friction and hits an active hotspot framework.<br>
+                            <span class="text-white font-semibold">2. Engagement:</span> User opens and reviews the help context video for <span class="text-white">≥ 20 seconds</span>.<br>
+                            <span class="text-white font-semibold">3. Conversion:</span> User accurately completes the blocked onboarding sequence path.<br>
+                            <span class="text-white font-semibold">4. Retention:</span> User safely re-authenticates and logs into the application within a <span class="text-white">7-day window</span>.
+                        </span>
+                    </span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                
+                <div class="bg-gray-50/50 border border-gray-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-900 mb-0.5">DIY Implementation Pathway</h4>
+                        <p class="text-[11px] text-gray-500 mb-4">Leverage your internal product team for asset creation runs.</p>
+                        
+                        <div class="flex items-baseline gap-1 mb-5">
+                            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900">$0</span>
+                            <span class="text-gray-400 text-[11px] font-semibold">/ month platform fee</span>
+                        </div>
+
+                        <ul class="space-y-2.5 text-[11px] sm:text-xs font-medium text-gray-600 border-t border-gray-200/60 pt-4">
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500 font-bold">✓</span>
+                                Upload and link custom asset video arrays to specific telemetry tags
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500 font-bold">✓</span>
+                                Complete framework access to dynamic font and asset cloning runtime
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#signup-section" class="w-full mt-6 bg-slate-950 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl transition text-xs text-center shadow-sm">
+                        Deploy DIY Snippet
+                    </a>
+                </div>
+
+                <div class="bg-gray-50/50 border border-gray-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-sm relative overflow-hidden">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-900 mb-0.5">DFY Premium Content Pathway</h4>
+                        <p class="text-[11px] text-gray-500 mb-4">Complete production execution managed entirely by us.</p>
+                        
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900">$2,500</span>
+                            <span class="text-gray-400 text-[11px] font-semibold">/ custom produced asset video</span>
+                        </div>
+
+                        <div class="space-y-1.5 mb-5">
+                            <div class="bg-blue-50/60 border border-blue-100 p-2.5 rounded-xl flex justify-between items-center text-[11px]">
+                                <div>
+                                    <p class="font-bold text-blue-900">Optional UI Maintenance Shield</p>
+                                    <p class="text-[10px] text-blue-700/80">Asset sync updates within 48 hours of UI changes</p>
+                                </div>
+                                <span class="font-mono font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-[10px]">+$79/mo</span>
+                            </div>
+                            
+                            <div class="bg-white border border-dashed border-gray-200 p-2.5 rounded-xl flex justify-between items-center text-[11px]">
+                                <div>
+                                    <p class="font-bold text-gray-600">On-Demand Adjustment Mode</p>
+                                    <p class="text-[10px] text-gray-400">Pay as you go whenever structural elements alter</p>
+                                </div>
+                                <span class="font-mono font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px]">$199/run</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-2.5 text-[11px] sm:text-xs font-medium text-gray-600 border-t border-gray-200/60 pt-4">
+                            <li class="flex items-start gap-2">
+                                <span class="text-blue-600 font-bold">✓</span>
+                                Turnkey media handling: full asset scripting, capture runs, and clean voiceovers
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-blue-600 font-bold">✓</span>
+                                Routine diagnostic reviews by an assigned conversion specialist
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#signup-section" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition text-xs text-center shadow-md">
+                        Request Premium Managed Setup
+                    </a>
+                </div>
+
+            </div>
+        </section>
     </main>
 
     <div id="onboarding-modal" class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
@@ -189,7 +370,7 @@
                     <span id="step-indicator" class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">Step 1 of 2</span>
                 </div>
                 <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden relative">
-                    <div id="progress-bar" class="bg-blue-500 h-full w-1/3 transition-all duration-300"></div>
+                    <div id="progress-bar" class="bg-blue-50 h-full w-1/3 transition-all duration-300"></div>
                 </div>
                 <div class="flex justify-between text-[10px] text-gray-400 font-semibold mt-1.5">
                     <span>Profile Start</span>
@@ -409,254 +590,44 @@
             
             cacheCurrentState();
             updateModalSetupScore();
-            headerSocialProof.textContent = "🔥 127 sites like yours installed GetChurnShield this week.";
-
-            // Reset modal layout size limits to default baseline step
-            modalPanelWrapper.classList.remove("max-w-2xl", "h-[90vh]");
-            modalPanelWrapper.classList.add("max-w-lg");
-            modalActions.classList.remove("hidden");
-
+            
+            // Unhide modal flow layout view components natively
             onboardingModal.classList.remove("hidden");
         });
 
-        // Clean Close Sequence Action Triggers
-        waitlistClearBtn.addEventListener("click", () => {
-            onboardingModal.classList.add("hidden");
-            signupForm.reset();
-            localStorage.removeItem("gcs_funnel_state");
-            setTimeout(() => { location.reload(); }, 150);
-        });
-
-        // Chatbot Interface Script Simulation Pipeline
-        let currentBotStep = 0;
-        let chatbotBlockerTarget = "";
-
-        function renderBotMessage(text, isUser = false) {
-            const wrapper = document.createElement("div");
-            wrapper.className = isUser ? "flex justify-end" : "flex justify-start animate-fade-in";
+        // Interactive Snippet Documentation Step Switching Control Logic
+        function switchDocStep(step) {
+            const textOptions = ["index.html", "authContext.js", "watchdogLogs.js"];
             
-            const bubble = document.createElement("div");
-            bubble.className = isUser 
-                ? "bg-blue-600 text-white px-3.5 py-2.5 rounded-2xl rounded-tr-none max-w-[85%] font-medium shadow-sm" 
-                : "bg-white border border-gray-200 text-slate-800 px-3.5 py-2.5 rounded-2xl rounded-tl-none max-w-[85%] font-medium shadow-sm";
-            
-            bubble.innerHTML = text;
-            wrapper.appendChild(bubble);
-            chatbotStream.appendChild(wrapper);
-            chatbotStream.scrollTop = chatbotStream.scrollHeight;
-        }
-
-        function renderBotTypingIndicator() {
-            const indicator = document.createElement("div");
-            indicator.id = "bot-typing-indicator";
-            indicator.className = "flex justify-start";
-            indicator.innerHTML = `
-                <div class="bg-white border border-gray-200 px-4 py-3 rounded-2xl rounded-tl-none flex items-center gap-1 shadow-sm">
-                    <span class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0ms"></span>
-                    <span class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 150ms"></span>
-                    <span class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 300ms"></span>
-                </div>
-            `;
-            chatbotStream.appendChild(indicator);
-            chatbotStream.scrollTop = chatbotStream.scrollHeight;
-        }
-
-        function removeBotTypingIndicator() {
-            const indicator = document.getElementById("bot-typing-indicator");
-            if (indicator) indicator.remove();
-        }
-
-        function runChatbotAutomationPipeline() {
-            const userName = document.getElementById("hidden-lead-name").value || "there";
-            const appUrl = document.getElementById("hidden-lead-url").value || "your app";
-            const currentHeadache = headacheInput.value || "onboarding dropoffs";
-            const strategyChoice = document.querySelector('input[name="video-strategy"]:checked').value;
-
-            // Clear container and state mapping
-            chatbotStream.innerHTML = "";
-            currentBotStep = 1;
-
-            renderBotTypingIndicator();
-
-            setTimeout(() => {
-                removeBotTypingIndicator();
-                renderBotMessage(`👋 Hey ${userName}! Let's configure your <strong>GetChurnShield Automation Pack</strong> instantly for <code>${appUrl}</code>.`);
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById('code-block-' + i).classList.add('hidden');
                 
-                setTimeout(() => {
-                    renderBotTypingIndicator();
-                    setTimeout(() => {
-                        removeBotTypingIndicator();
-                        
-                        // Adapt query context to whether they chose DIY or DFY Strategy early
-                        let goalText = strategyChoice === "dfy" 
-                            ? `Confirming your strategy selection: You requested our full production crew wrapper. Is your primary target goal to have us build everything asynchronously out-of-the-box?`
-                            : `Confirming your strategy selection: You selected our self-serve DIY configuration layer. Is your main goal to unlock tracking code setups instantly?`;
-                        
-                        renderBotMessage(goalText);
-                        renderBotOptions(["Yes, exactly", "I need to review details"]);
-                    }, 1000);
-                }, 800);
-            }, 600);
-        }
-
-        function renderBotOptions(options) {
-            const optionsWrapper = document.createElement("div");
-            optionsWrapper.id = "bot-options-container";
-            optionsWrapper.className = "flex flex-col gap-1.5 pt-1 items-start";
-            
-            options.forEach(opt => {
-                const btn = document.createElement("button");
-                btn.type = "button";
-                btn.className = "bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-bold px-3.5 py-2 rounded-xl transition duration-200 text-left";
-                btn.textContent = opt;
-                btn.addEventListener("click", () => handleBotOptionSelection(opt));
-                optionsWrapper.appendChild(btn);
-            });
-            
-            chatbotStream.appendChild(optionsWrapper);
-            chatbotStream.scrollTop = chatbotStream.scrollHeight;
-        }
-
-        function handleBotOptionSelection(value) {
-            const optionsContainer = document.getElementById("bot-options-container");
-            if (optionsContainer) optionsContainer.remove();
-
-            renderBotMessage(value, true);
-            renderBotTypingIndicator();
-
-            setTimeout(() => {
-                removeBotTypingIndicator();
-                
-                if (currentBotStep === 1) {
-                    updateModalSetupScore(80);
-                    currentBotStep = 2;
-                    renderBotMessage(`Got it. Next parameter: You cited your current main operational bottleneck as: <em>"${headacheInput.value}"</em>.<br/><br/>To route custom elements, what is the single biggest mechanical blocker keeping users from solving this layout step?`);
-                    
-                    // Activate manual user inputs fields surgically for open textual input loop
-                    chatbotTextInput.disabled = false;
-                    chatbotTextInput.placeholder = "Type your blocker reason here...";
-                    chatbotTextInput.classList.remove("bg-gray-50", "text-gray-400");
-                    chatbotTextInput.classList.add("bg-white", "text-slate-800");
-                    chatbotTextInput.focus();
-                    
-                    chatbotSendBtn.disabled = false;
-                    chatbotSendBtn.classList.remove("bg-gray-200", "text-gray-400", "cursor-not-allowed");
-                    chatbotSendBtn.classList.add("bg-blue-600", "text-white", "cursor-pointer");
-                }
-            }, 1000);
-        }
-
-        // Human Intercept Trigger Handler Action
-        function executeChatbotTextSubmit() {
-            const userInput = chatbotTextInput.value.trim();
-            if (!userInput) return;
-
-            chatbotTextInput.value = "";
-            // Lock fields right down again to finalize loop processing
-            chatbotTextInput.disabled = true;
-            chatbotTextInput.placeholder = "Processing tracking config...";
-            chatbotTextInput.classList.add("bg-gray-50", "text-gray-400");
-            
-            chatbotSendBtn.disabled = true;
-            chatbotSendBtn.classList.add("bg-gray-200", "text-gray-400", "cursor-not-allowed");
-            chatbotSendBtn.classList.remove("bg-blue-600", "text-white", "cursor-pointer");
-
-            renderBotMessage(userInput, true);
-            renderBotTypingIndicator();
-
-            // Check if user is typing human panic escalation signals directly
-            const lowerInput = userInput.toLowerCase();
-            const triggerEscalation = lowerInput.includes("error") || lowerInput.includes("stuck");
-
-            setTimeout(() => {
-                removeBotTypingIndicator();
-                
-                if (triggerEscalation) {
-                    // Crisp Human Escalation Trigger Node Hand-off Simulation
-                    updateModalSetupScore(95);
-                    stepIndicator.textContent = "Handoff Active";
-                    stepIndicator.classList.replace("text-blue-400", "text-amber-400");
-                    headerSocialProof.textContent = "⚠️ Disruption pattern flagged. Handing session off to support representative inside Crisp.";
-                    renderBotMessage(`🚨 <strong>System Notification:</strong> Blocker flag registered. I am immediately alerting our support person inside Crisp chat to intercept this run and assist you directly.`);
-                } else {
-                    // Standard Pipeline Complete Out Sequence Run
-                    updateModalSetupScore(100);
-                    stepIndicator.textContent = "Compiled";
-                    stepIndicator.classList.replace("text-blue-400", "text-emerald-400");
-                    headerSocialProof.textContent = "✓ Config parameters unified. Delivery scheduled via automation pipeline.";
-                    
-                    renderBotMessage(`🎉 <strong>Parameter lock match complete!</strong> Your automated integration assets package has been successfully structured and queued.<br/><br/>📬 Check your business email in 10 minutes for your specialized setup code pack containing tracking script nodes and layout sandbox assets.`);
-                }
-                
-                // Show final close action triggers inside action zone smoothly
-                modalActions.classList.remove("hidden");
-                nextBtn.textContent = "Finish Configuration";
-                nextBtn.classList.replace("bg-blue-600", "bg-slate-900");
-                
-                // Final close button re-wiring
-                nextBtn.onclick = function() {
-                    onboardingModal.classList.add("hidden");
-                    signupForm.reset();
-                    localStorage.removeItem("gcs_funnel_state");
-                    setTimeout(() => { location.reload(); }, 150);
-                };
-            }, 1200);
-        }
-
-        chatbotSendBtn.addEventListener("click", executeChatbotTextSubmit);
-        chatbotTextInput.addEventListener("keypress", (e) => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                executeChatbotTextSubmit();
-            }
-        });
-
-        nextBtn.addEventListener("click", () => {
-            const mrrValue = mrrSelect.value;
-            const churnValue = churnSelect.value;
-            const headacheValue = headacheInput.value;
-
-            if (!mrrValue || !churnValue || !headacheValue) {
-                alert("Please complete the required metric selections.");
-                return;
+                let btn = document.getElementById('step-btn-' + i);
+                btn.className = "w-full text-left p-3.5 rounded-xl border border-transparent hover:bg-white/5 transition-all outline-none";
+                btn.querySelector('span').className = "w-5 h-5 rounded-full bg-slate-800 text-[10px] flex items-center justify-center font-bold";
+                btn.querySelector('div').className = "text-xs font-bold text-gray-400 flex items-center gap-2";
             }
 
-            cacheCurrentState();
+            document.getElementById('code-block-' + step).classList.remove('hidden');
+            document.getElementById('terminal-filename').textContent = textOptions[step - 1];
+            
+            let activeBtn = document.getElementById('step-btn-' + step);
+            activeBtn.className = "w-full text-left p-3.5 rounded-xl border border-blue-500/30 bg-blue-500/5 transition-all outline-none";
+            activeBtn.querySelector('span').className = "w-5 h-5 rounded-full bg-blue-600 text-[10px] flex items-center justify-center font-bold text-white";
+            activeBtn.querySelector('div').className = "text-xs font-bold text-white flex items-center gap-2";
+        }
 
-            // High Value Account Routing Logic Filter (Defines Qualification Matrix)
-            if (mrrValue === "low" || churnValue === "none" || churnValue === "low") {
-                // Route to low tier waitlist card element
-                step1Container.classList.add("hidden");
-                modalActions.classList.add("hidden");
-                waitlistContainer.classList.remove("hidden");
-                stepIndicator.textContent = "Allocation Closed";
-                
-                progressBar.style.width = "100%";
-                progressBar.classList.replace("bg-blue-500", "bg-amber-500");
-                progressScoreText.textContent = "Processing Finished";
-                progressScoreText.classList.replace("text-blue-400", "text-amber-400");
-                headerSocialProof.textContent = "⚠️ Enterprise optimization limits reached for lower-tier profiles.";
+        // Saved User Protocol Info Tooltip Element Toggling Interaction Trigger
+        function toggleProtocolTooltip(show) {
+            let tooltip = document.getElementById('saved-protocol-tooltip');
+            if (show) {
+                tooltip.classList.remove('hidden');
+                setTimeout(() => { tooltip.classList.add('opacity-100'); }, 10);
             } else {
-                // High Qualification Pipeline Routing Execution — Transform layout frame dimensions to full immersive screen space
-                modalPanelWrapper.classList.remove("max-w-lg");
-                modalPanelWrapper.classList.add("max-w-2xl", "h-[90vh]");
-
-                step1Container.classList.add("hidden");
-                step2Container.classList.remove("hidden");
-                
-                // Hide actions bar temporarily while chatbot runs automation options
-                modalActions.classList.add("hidden");
-                
-                stepIndicator.textContent = "Step 2 of 2";
-                updateModalSetupScore(55);
-
-                // Founder Note logic activation wrapper only triggered for high targets
-                founderNoteCard.classList.remove("hidden");
-                
-                // Trigger dynamic live chat simulation execution
-                runChatbotAutomationPipeline();
+                tooltip.classList.remove('opacity-100');
+                setTimeout(() => { tooltip.classList.add('hidden'); }, 150);
             }
-        });
+        }
     </script>
 </body>
 </html>
