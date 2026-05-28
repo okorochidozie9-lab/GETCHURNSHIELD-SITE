@@ -260,102 +260,79 @@
             <div class="relative bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 sm:p-8 mb-6 text-center shadow-sm group">
                 <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white font-bold text-[9px] uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">
                     Baseline Infrastructure Utility Fee
-                </div>
-                
-                <p class="text-[10px] font-bold text-blue-700 tracking-wider uppercase mb-1">Applies to All Accounts</p>
-                <h3 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mb-3">20% of Saved LTV</h3>
-                <p class="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto font-medium">
-                    Our platform logic applies cleanly to every implementation path. 
-                    <span class="text-blue-600 font-bold underline decoration-dashed cursor-pointer inline-flex items-center gap-0.5 relative" onmouseenter="toggleProtocolTooltip(true)" onmouseleave="toggleProtocolTooltip(false)">
-                        No Saved User, No Pay
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        
-                        <span id="saved-protocol-tooltip" class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-72 sm:w-80 bg-slate-950 border border-slate-800 p-4 rounded-xl text-left text-[11px] text-gray-300 shadow-xl hidden opacity-0 transition-opacity pointer-events-none z-50 font-normal leading-relaxed">
-                            <span class="block font-bold text-white text-xs mb-1.5 border-b border-slate-800 pb-1">📊 Saved User Definition Protocol</span>
-                            A customer session is only flagged as successfully saved by ChurnShield if it tracks through four explicit metrics:<br><br>
-                            <span class="text-white font-semibold">1. Trigger:</span> User runs into friction and hits an active hotspot framework.<br>
-                            <span class="text-white font-semibold">2. Engagement:</span> User opens and reviews the help context video for <span class="text-white">≥ 20 seconds</span>.<br>
-                            <span class="text-white font-semibold">3. Conversion:</span> User accurately completes the blocked onboarding sequence path.<br>
-                            <span class="text-white font-semibold">4. Retention:</span> User safely re-authenticates and logs into the application within a <span class="text-white">7-day window</span>.
-                        </span>
-                    </span>
-                </p>
+<section id="pricing" class="w-full max-w-4xl border-t border-gray-100 pt-20 text-center px-2 sm:px-0 mb-28">
+    <h2 class="text-2xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-4">
+        Transparent Snippet Setup. Performance Pricing.
+    </h2>
+    <p class="text-xs sm:text-base text-gray-500 max-w-2xl mx-auto mb-14">
+        Deploy the low-latency runtime tracking code in minutes. Align asset overhead directly with actual revenue saved.
+    </p>
+
+    <!-- Performance fee banner -->
+    <div class="relative bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 rounded-2xl p-6 sm:p-8 mb-6 text-center shadow-sm">
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white font-bold text-[9px] uppercase tracking-widest px-3 py-1 rounded-full">
+            Performance Fee
+        </div>
+        <p class="text-xs font-bold text-blue-700 tracking-wider uppercase mb-1">Applies to All Accounts</p>
+        <h3 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mb-3">20% of Recovered LTV</h3>
+        <p class="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto font-medium">
+            Paid when a user logs in within 7 days of seeing the video. LTV = MRR × 12, capped at 6 months. Billed monthly with 30-day clawback.
+        </p>
+    </div>
+
+    <!-- Pricing cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+        <!-- DIY Card -->
+        <div class="bg-gray-50/50 border-gray-200/80 rounded-2xl p-6 shadow-sm">
+            <h4 class="text-sm font-bold text-slate-900 mb-0.5">DIY Churn Rescue Kit</h4>
+            <p class="text-xs text-gray-500 mb-4">You create and host the video. We give you the system.</p>
+            <div class="flex items-baseline gap-1 mb-5">
+                <span class="text-2xl sm:text-3xl font-extrabold text-slate-900">$499</span>
+                <span class="text-gray-400 text-xs font-semibold">one-time access fee</span>
             </div>
+            <ul class="space-y-2.5 text-xs font-medium text-gray-600 border-t border-gray-200/60 pt-4">
+                <li class="flex items-start gap-2"><span class="text-green-500 font-bold">✓</span>Install doc + screen-recorded video</li>
+                <li class="flex items-start gap-2"><span class="text-green-500 font-bold">✓</span>Tracking verification checklist</li>
+                <li class="flex items-start gap-2"><span class="text-green-500 font-bold">✓</span>Custom dashboard: drop-offs, LTV saved, video performance, stuck pages</li>
+                <li class="flex items-start gap-2"><span class="text-gray-400 font-bold">+</span>Optional install help: <span class="font-bold">$499 one-time</span></li>
+                <li class="flex items-start gap-2"><span class="text-gray-400 font-bold">+</span>Video rework: <span class="font-bold">$399 per video</span></li>
+            </ul>
+            <a href="#signup-section" class="w-full mt-6 bg-slate-950 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl text-xs text-center block">Get DIY Access</a>
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                
-                <div class="bg-gray-50/50 border border-gray-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900 mb-0.5">DIY Implementation Pathway</h4>
-                        <p class="text-[11px] text-gray-500 mb-4">Leverage your internal product team for asset creation runs.</p>
-                        
-                        <div class="flex items-baseline gap-1 mb-5">
-                            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900">$0</span>
-                            <span class="text-gray-400 text-[11px] font-semibold">/ month platform fee</span>
-                        </div>
-
-                        <ul class="space-y-2.5 text-[11px] sm:text-xs font-medium text-gray-600 border-t border-gray-200/60 pt-4">
-                            <li class="flex items-start gap-2">
-                                <span class="text-green-500 font-bold">✓</span>
-                                Upload and link custom asset video arrays to specific telemetry tags
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="text-green-500 font-bold">✓</span>
-                                Complete framework access to dynamic font and asset cloning runtime
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="#signup-section" class="w-full mt-6 bg-slate-950 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl transition text-xs text-center shadow-sm">
-                        Deploy DIY Snippet
-                    </a>
-                </div>
-
-                <div class="bg-gray-50/50 border border-gray-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-sm relative overflow-hidden">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900 mb-0.5">DFY Premium Content Pathway</h4>
-                        <p class="text-[11px] text-gray-500 mb-4">Complete production execution managed entirely by us.</p>
-                        
-                        <div class="flex items-baseline gap-1 mb-4">
-                            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900">$2,500</span>
-                            <span class="text-gray-400 text-[11px] font-semibold">/ custom produced asset video</span>
-                        </div>
-
-                        <div class="space-y-1.5 mb-5">
-                            <div class="bg-blue-50/60 border border-blue-100 p-2.5 rounded-xl flex justify-between items-center text-[11px]">
-                                <div>
-                                    <p class="font-bold text-blue-900">Optional UI Maintenance Shield</p>
-                                    <p class="text-[10px] text-blue-700/80">Asset sync updates within 48 hours of UI changes</p>
-                                </div>
-                                <span class="font-mono font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-[10px]">+$79/mo</span>
-                            </div>
-                            
-                            <div class="bg-white border border-dashed border-gray-200 p-2.5 rounded-xl flex justify-between items-center text-[11px]">
-                                <div>
-                                    <p class="font-bold text-gray-600">On-Demand Adjustment Mode</p>
-                                    <p class="text-[10px] text-gray-400">Pay as you go whenever structural elements alter</p>
-                                </div>
-                                <span class="font-mono font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px]">$199/run</span>
-                            </div>
-                        </div>
-
-                        <ul class="space-y-2.5 text-[11px] sm:text-xs font-medium text-gray-600 border-t border-gray-200/60 pt-4">
-                            <li class="flex items-start gap-2">
-                                <span class="text-blue-600 font-bold">✓</span>
-                                Turnkey media handling: full asset scripting, capture runs, and clean voiceovers
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="text-blue-600 font-bold">✓</span>
-                                Routine diagnostic reviews by an assigned conversion specialist
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="#signup-section" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition text-xs text-center shadow-md">
-                        Request Premium Managed Setup
-                    </a>
-                </div>
-
+        <!-- DFY Card -->
+        <div class="bg-gray-50/50 border-gray-200/80 rounded-2xl p-6 shadow-sm">
+            <h4 class="text-sm font-bold text-slate-900 mb-0.5">Done-For-You Churn Rescue</h4>
+            <p class="text-xs text-gray-500 mb-4">We script, shoot, edit, and maintain everything.</p>
+            <div class="flex items-baseline gap-1 mb-4">
+                <span class="text-2xl sm:text-3xl font-extrabold text-slate-900">$2,500</span>
+                <span class="text-gray-400 text-xs font-semibold">one-time setup</span>
             </div>
-        </section>
+            <div class="space-y-1.5 mb-5">
+                <div class="bg-blue-50/60 border-blue-100 p-2.5 rounded-xl flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-blue-900">Video Maintenance</p>
+                        <p class="text-xs text-blue-700/80">Up to 4 updates per month</p>
+                    </div>
+                    <span class="font-mono font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs">$499/mo</span>
+                </div>
+                <div class="bg-white border-dashed border-gray-200 p-2.5 rounded-xl flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-gray-600">Pay-as-you-go</p>
+                        <p class="text-xs text-gray-400">No monthly commitment</p>
+                    </div>
+                    <span class="font-mono font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs">$399/video</span>
+                </div>
+            </div>
+            <ul class="space-y-2.5 text-xs font-medium text-gray-600 border-t border-gray-200/60 pt-4">
+                <li class="flex items-start gap-2"><span class="text-blue-600 font-bold">✓</span>Full video production</li>
+                <li class="flex items-start gap-2"><span class="text-blue-600 font-bold">✓</span>Optional code install: <span class="font-bold">$499 one-time</span></li>
+                <li class="flex items-start gap-2"><span class="text-blue-600 font-bold">✓</span>Custom dashboard included</li>
+            </ul>
+            <a href="#signup-section" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs text-center block">Request Managed Setup</a>
+        </div>
+    </div>
+                                                                                    </section>
     </main>
 
     <div id="onboarding-modal" class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
