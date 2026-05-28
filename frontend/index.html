@@ -178,89 +178,6 @@
         </section>
 
         <section id="pricing" class="w-full max-w-4xl border-t border-gray-100 pt-20 text-center px-2 sm:px-0 mb-28">
-            <h2 class="text-2xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-4">
-                Transparent Snippet Setup. Performance Pricing.
-            </h2>
-            <p class="text-xs sm:text-base text-gray-500 max-w-2xl mx-auto mb-14">
-                Deploy the low-latency runtime tracking code in minutes. Align asset overhead directly with actual revenue saved.
-            </p>
-
-            <div class="bg-slate-950 rounded-2xl p-6 sm:p-8 mb-12 shadow-xl text-left border border-slate-900">
-                <div class="flex flex-col lg:flex-row gap-8 items-stretch">
-                    
-                    <div class="w-full lg:w-2/5 flex flex-col justify-between gap-3">
-                        <div>
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full">Developer Sandbox</span>
-                            <h3 class="text-lg font-bold mt-3 text-white">3-Minute Activation Loop</h3>
-                        </div>
-                        
-                        <div class="space-y-2 flex-1 flex flex-col justify-center">
-                            <button type="button" onclick="switchDocStep(1)" id="step-btn-1" class="w-full text-left p-3.5 rounded-xl border border-blue-500/30 bg-blue-500/5 transition-all outline-none">
-                                <div class="text-xs font-bold text-white flex items-center gap-2">
-                                    <span class="w-5 h-5 rounded-full bg-blue-600 text-[10px] flex items-center justify-center font-bold">1</span>
-                                    Embed Script Runtime
-                                </div>
-                                <p class="text-[11px] text-gray-400 ml-7 mt-0.5 font-medium">Drop the unified V2 tracking snippet directly into your main header block.</p>
-                            </button>
-
-                            <button type="button" onclick="switchDocStep(2)" id="step-btn-2" class="w-full text-left p-3.5 rounded-xl border border-transparent hover:bg-white/5 transition-all outline-none">
-                                <div class="text-xs font-bold text-gray-400 flex items-center gap-2">
-                                    <span class="w-5 h-5 rounded-full bg-slate-800 text-[10px] flex items-center justify-center font-bold">2</span>
-                                    Identify Workspace Context
-                                </div>
-                                <p class="text-[11px] text-gray-500 ml-7 mt-0.5 font-medium">Pass dynamic workspace elements to sync custom styling parameters natively.</p>
-                            </button>
-
-                            <button type="button" onclick="switchDocStep(3)" id="step-btn-3" class="w-full text-left p-3.5 rounded-xl border border-transparent hover:bg-white/5 transition-all outline-none">
-                                <div class="text-xs font-bold text-gray-400 flex items-center gap-2">
-                                    <span class="w-5 h-5 rounded-full bg-slate-800 text-[10px] flex items-center justify-center font-bold">3</span>
-                                    Initialize Watchdog Shields
-                                </div>
-                                <p class="text-[11px] text-gray-500 ml-7 mt-0.5 font-medium">The engine tracks user anomalies and automates hyper-targeted video playbacks.</p>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="w-full lg:w-3/5 bg-slate-900 border border-slate-800 rounded-xl p-5 font-mono text-[11px] sm:text-xs relative flex flex-col shadow-inner min-h-[180px]">
-                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 shrink-0">
-                            <div class="flex items-center gap-1.5">
-                                <span class="w-2.5 h-2.5 rounded-full bg-red-500/40"></span>
-                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/40"></span>
-                                <span class="w-2.5 h-2.5 rounded-full bg-green-500/40"></span>
-                                <span class="text-[10px] text-slate-500 font-mono ml-1.5" id="terminal-filename">index.html</span>
-                            </div>
-                        </div>
-                        
-                        <div class="flex-1 flex flex-col justify-center overflow-x-auto">
-                            <pre id="code-block-1" class="text-slate-300 leading-relaxed"><code><span class="text-slate-500">&lt;!-- Paste inside your application header tag --&gt;</span>
-&lt;<span class="text-blue-400">script</span> <span class="text-purple-400">async</span> <span class="text-yellow-400">src</span>=<span class="text-green-400">"https://cdn.getchurnshield.com/v2/sdk.js"</span>&gt;&lt;/<span class="text-blue-400">script</span>&gt;
-&lt;<span class="text-blue-400">script</span>&gt;
-  <span class="text-purple-400">window</span>.ChurnShield = <span class="text-purple-400">window</span>.ChurnShield || [];
-  <span class="text-yellow-400">ChurnShield</span>.<span class="text-blue-400">push</span>([<span class="text-green-400">'init'</span>, <span class="text-green-400">'your_account_token'</span>]);
-&lt;/<span class="text-blue-400">script</span>&gt;</code></pre>
-
-                            <pre id="code-block-2" class="text-slate-300 leading-relaxed hidden"><code><span class="text-slate-500">// Sync interface identity attributes dynamically</span>
-<span class="text-purple-400">window</span>.ChurnShield.<span class="text-blue-400">push</span>([<span class="text-green-400">'identify'</span>, {
-  userId: <span class="text-green-400">"user_ctx_4091"</span>,
-  theme: {
-    primaryColor: <span class="text-green-400">"#2563EB"</span>,
-    fontFamily: <span class="text-green-400">"Plus Jakarta Sans"</span>
-  }
-}]);</code></pre>
-
-                            <pre id="code-block-3" class="text-slate-300 leading-relaxed hidden"><code><span class="text-slate-500">// Engine monitors live paths and handles micro-video execution</span>
-<span class="text-purple-400">window</span>.ChurnShield.<span class="text-blue-400">on</span>(<span class="text-green-400">'hotspot_active'</span>, (<span class="text-yellow-400">session</span>) =&gt; {
-  <span class="text-purple-400">console</span>.<span class="text-blue-400">log</span>(<span class="text-green-400">`Retention runtime rendering on route: ${session.path}`</span>);
-});</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 sm:p-8 mb-6 text-center shadow-sm group">
-                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white font-bold text-[9px] uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">
-                    Baseline Infrastructure Utility Fee
-<section id="pricing" class="w-full max-w-4xl border-t border-gray-100 pt-20 text-center px-2 sm:px-0 mb-28">
     <h2 class="text-2xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-4">
         Transparent Snippet Setup. Performance Pricing.
     </h2>
@@ -268,9 +185,8 @@
         Deploy the low-latency runtime tracking code in minutes. Align asset overhead directly with actual revenue saved.
     </p>
 
-    <!-- Performance fee banner -->
-    <div class="relative bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 rounded-2xl p-6 sm:p-8 mb-6 text-center shadow-sm">
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white font-bold text-[9px] uppercase tracking-widest px-3 py-1 rounded-full">
+    <div class="relative bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 sm:p-8 mb-6 text-center shadow-sm">
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white font-bold text-[9px] uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">
             Performance Fee
         </div>
         <p class="text-xs font-bold text-blue-700 tracking-wider uppercase mb-1">Applies to All Accounts</p>
@@ -280,10 +196,8 @@
         </p>
     </div>
 
-    <!-- Pricing cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-        <!-- DIY Card -->
-        <div class="bg-gray-50/50 border-gray-200/80 rounded-2xl p-6 shadow-sm">
+        <div class="bg-gray-50/50 border border-gray-200/80 rounded-2xl p-6 shadow-sm">
             <h4 class="text-sm font-bold text-slate-900 mb-0.5">DIY Churn Rescue Kit</h4>
             <p class="text-xs text-gray-500 mb-4">You create and host the video. We give you the system.</p>
             <div class="flex items-baseline gap-1 mb-5">
@@ -293,15 +207,12 @@
             <ul class="space-y-2.5 text-xs font-medium text-gray-600 border-t border-gray-200/60 pt-4">
                 <li class="flex items-start gap-2"><span class="text-green-500 font-bold">✓</span>Install doc + screen-recorded video</li>
                 <li class="flex items-start gap-2"><span class="text-green-500 font-bold">✓</span>Tracking verification checklist</li>
-                <li class="flex items-start gap-2"><span class="text-green-500 font-bold">✓</span>Custom dashboard: drop-offs, LTV saved, video performance, stuck pages</li>
-                <li class="flex items-start gap-2"><span class="text-gray-400 font-bold">+</span>Optional install help: <span class="font-bold">$499 one-time</span></li>
-                <li class="flex items-start gap-2"><span class="text-gray-400 font-bold">+</span>Video rework: <span class="font-bold">$399 per video</span></li>
+                <li class="flex items-start gap-2"><span class="text-green-500 font-bold">✓</span>Custom dashboard: drop-offs, LTV saved, video performance</li>
             </ul>
             <a href="#signup-section" class="w-full mt-6 bg-slate-950 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl text-xs text-center block">Get DIY Access</a>
         </div>
 
-        <!-- DFY Card -->
-        <div class="bg-gray-50/50 border-gray-200/80 rounded-2xl p-6 shadow-sm">
+        <div class="bg-gray-50/50 border border-gray-200/80 rounded-2xl p-6 shadow-sm">
             <h4 class="text-sm font-bold text-slate-900 mb-0.5">Done-For-You Churn Rescue</h4>
             <p class="text-xs text-gray-500 mb-4">We script, shoot, edit, and maintain everything.</p>
             <div class="flex items-baseline gap-1 mb-4">
@@ -309,30 +220,22 @@
                 <span class="text-gray-400 text-xs font-semibold">one-time setup</span>
             </div>
             <div class="space-y-1.5 mb-5">
-                <div class="bg-blue-50/60 border-blue-100 p-2.5 rounded-xl flex justify-between items-center text-xs">
+                <div class="bg-blue-50/60 border border-blue-100 p-2.5 rounded-xl flex justify-between items-center text-xs">
                     <div>
                         <p class="font-bold text-blue-900">Video Maintenance</p>
                         <p class="text-xs text-blue-700/80">Up to 4 updates per month</p>
                     </div>
                     <span class="font-mono font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs">$499/mo</span>
                 </div>
-                <div class="bg-white border-dashed border-gray-200 p-2.5 rounded-xl flex justify-between items-center text-xs">
-                    <div>
-                        <p class="font-bold text-gray-600">Pay-as-you-go</p>
-                        <p class="text-xs text-gray-400">No monthly commitment</p>
-                    </div>
-                    <span class="font-mono font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs">$399/video</span>
-                </div>
             </div>
             <ul class="space-y-2.5 text-xs font-medium text-gray-600 border-t border-gray-200/60 pt-4">
                 <li class="flex items-start gap-2"><span class="text-blue-600 font-bold">✓</span>Full video production</li>
-                <li class="flex items-start gap-2"><span class="text-blue-600 font-bold">✓</span>Optional code install: <span class="font-bold">$499 one-time</span></li>
                 <li class="flex items-start gap-2"><span class="text-blue-600 font-bold">✓</span>Custom dashboard included</li>
             </ul>
             <a href="#signup-section" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs text-center block">Request Managed Setup</a>
         </div>
     </div>
-                                                                                    </section>
+</section>
     </main>
 
     <div id="onboarding-modal" class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
